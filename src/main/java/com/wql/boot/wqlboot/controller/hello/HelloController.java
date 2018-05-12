@@ -19,6 +19,7 @@ import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
 import com.wql.boot.wqlboot.common.properties.SystemParamProperty;
+import com.wql.boot.wqlboot.common.properties.WqlBootProperty;
 import com.wql.boot.wqlboot.service.mail.MailService;
 import com.wql.boot.wqlboot.service.rabbitmq.sender.HelloSender;
 
@@ -41,7 +42,10 @@ public class HelloController {
 	private RedissonClient redissonClient;
 	
 	@Autowired
-	private SystemParamProperty systemParamConfig;
+	private SystemParamProperty systemParamProperty;
+	
+	@Autowired
+	private WqlBootProperty wqlBootProperty;
 	
 	
 	@RequestMapping("/hello")
@@ -66,14 +70,12 @@ public class HelloController {
 	
 	@RequestMapping("/mail")
 	public String mail() {
-		mailService.sendSimpleMail("919762738@qq.com","test simple mail"," hello this is simple mail");
-		
+		mailService.sendSimpleMail("xxx@qq.com","test simple mail"," hello this is simple mail");
 		//邮件模板
         Context context = new Context();
         context.setVariable("id", "006");
         String emailContent = templateEngine.process("emailTemplate", context);
-        mailService.sendHtmlMail("919762738@qq.com","主题：这是模板邮件",emailContent);
-		
+        mailService.sendHtmlMail("xxx@qq.com","主题：这是模板邮件",emailContent);
         return "Hello mail !!!";
 	}
 	
@@ -103,10 +105,16 @@ public class HelloController {
 	}
 	
 	
-	@RequestMapping("/systemParam")
+	@RequestMapping("/systemParamProperty")
 	public String systemParam() {
-		System.out.println("default.key02: "+systemParamConfig.paramKey02);
-        return "systemParam";
+		System.out.println("default.key02: "+systemParamProperty.paramKey02);
+        return "systemParamProperty";
+	}
+	
+	@RequestMapping("/wqlBootProperty")
+	public String wqlBootProperty() {
+		System.out.println("wql-boot.test.name: "+wqlBootProperty.getName());
+        return "wqlBootProperty";
 	}
 	
 	

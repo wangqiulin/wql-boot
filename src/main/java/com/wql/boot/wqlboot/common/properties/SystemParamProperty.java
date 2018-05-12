@@ -4,7 +4,7 @@ import com.xxl.conf.core.annotation.XxlConf;
 import org.springframework.stereotype.Component;
 
 /**
- * xxl-conf-admin中的参数
+ * xxl-conf-admin中的配置参数，依赖zookeeper
  * 
  * @author wangqiulin
  * @date 2018年5月12日
