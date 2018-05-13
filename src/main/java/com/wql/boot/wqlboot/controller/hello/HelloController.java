@@ -5,6 +5,7 @@ package com.wql.boot.wqlboot.controller.hello;
  * @date 2018年5月10日
  */
 
+import java.io.IOException;
 import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
@@ -15,13 +16,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.thymeleaf.TemplateEngine;
-import org.thymeleaf.context.Context;
 
 import com.wql.boot.wqlboot.common.properties.SystemParamProperty;
 import com.wql.boot.wqlboot.common.properties.WqlBootProperty;
 import com.wql.boot.wqlboot.service.mail.MailService;
 import com.wql.boot.wqlboot.service.rabbitmq.sender.HelloSender;
+
+import freemarker.template.TemplateException;
 
 @RestController
 public class HelloController {
@@ -32,8 +33,8 @@ public class HelloController {
 	@Autowired
     private MailService mailService;
 	
-	@Autowired
-	private TemplateEngine templateEngine;
+//	@Autowired
+//	private TemplateEngine templateEngine;
 	 
 	@Autowired
 	private HelloSender helloSender;
@@ -69,13 +70,20 @@ public class HelloController {
 	
 	
 	@RequestMapping("/mail")
-	public String mail() {
+	public String mail() throws TemplateException, IOException {
 		mailService.sendSimpleMail("xxx@qq.com","test simple mail"," hello this is simple mail");
-		//邮件模板
-        Context context = new Context();
+		//thymeleaf邮件模板
+        /*Context context = new Context();
         context.setVariable("id", "006");
         String emailContent = templateEngine.process("emailTemplate", context);
-        mailService.sendHtmlMail("xxx@qq.com","主题：这是模板邮件",emailContent);
+        mailService.sendHtmlMail("xxx@qq.com","主题：这是模板邮件",emailContent);*/
+        
+        //freemarker模板
+        /*Configuration cfg = new Configuration(Configuration.VERSION_2_3_25);
+        cfg.setClassLoaderForTemplateLoading(ClassLoader.getSystemClassLoader(), "/WEB-INF/freemarker/");
+        Template emailTemplate = cfg.getTemplate("emailTemplate2.html");
+        StringWriter out = new StringWriter();
+        emailTemplate.process(null, out);*/
         return "Hello mail !!!";
 	}
 	
