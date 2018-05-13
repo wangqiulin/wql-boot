@@ -9,7 +9,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
- *
+ * 异常处理机制
+ * 
  * @author wangqiulin
  * @date 2018年5月12日
  */
