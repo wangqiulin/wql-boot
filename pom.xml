@@ -180,6 +180,13 @@
             <version>1.4.2-SNAPSHOT</version>
         </dependency>
         
+        <!-- xxl-search-client -->
+        <dependency>
+            <groupId>com.xxl</groupId>
+            <artifactId>xxl-search-client</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+        
         <!-- xxl-excel -->
         <dependency>
         	<groupId>com.xuxueli</groupId>
