@@ -1,4 +1,4 @@
-package com.wql.boot.wqlboot.config.xxljob;
+package com.wql.boot.wqlboot.config.xxl;
 
 import com.xxl.job.core.executor.XxlJobExecutor;
 import org.slf4j.Logger;

@@ -1,4 +1,4 @@
-package com.wql.boot.wqlboot.config.xxlconf;
+package com.wql.boot.wqlboot.config.xxl;
 
 import com.xxl.conf.core.spring.XxlConfFactory;
 import org.slf4j.Logger;

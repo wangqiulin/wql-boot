@@ -1,4 +1,4 @@
-package com.wql.boot.wqlboot.config.redisson;
+package com.wql.boot.wqlboot.config.redis;
 
 import java.io.IOException;
 
