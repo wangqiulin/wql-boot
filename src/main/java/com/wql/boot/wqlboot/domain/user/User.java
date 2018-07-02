@@ -8,11 +8,17 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.apache.poi.hssf.util.HSSFColor;
+
+import com.xuxueli.poi.excel.annotation.ExcelField;
+import com.xuxueli.poi.excel.annotation.ExcelSheet;
+
 /**
  *
  * @author wangqiulin
  * @date 2018年5月10日
  */
+@ExcelSheet(name = "用户列表", headColor = HSSFColor.HSSFColorPredefined.LIGHT_GREEN)
 @Table(name="t_user")
 public class User implements Serializable{
 
@@ -23,8 +29,10 @@ public class User implements Serializable{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 	
+	@ExcelField(name = "姓名")
 	private String userName;
 	
+	@ExcelField(name = "密码")
 	private String password;
 
 	public Integer getId() {

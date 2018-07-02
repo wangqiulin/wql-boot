@@ -1,5 +1,7 @@
 package com.wql.boot.wqlboot.service.user;
 
+import java.util.List;
+
 import com.wql.boot.wqlboot.domain.user.User;
 
 /**
@@ -18,5 +20,7 @@ public interface UserService {
 	void updateByName(String name, String password);
 	
 	void deleteByName(String name);
+
+	List<User> queryList();
 	
 }

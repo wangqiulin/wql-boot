@@ -1,5 +1,7 @@
 package com.wql.boot.wqlboot.service.user.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
@@ -83,5 +85,10 @@ public class UserServiceImpl implements UserService {
 		userMapper.delete(record);
 	}
 	
+	
+	@Override
+	public List<User> queryList() {
+		return userMapper.select(null);
+	}
 	
 }

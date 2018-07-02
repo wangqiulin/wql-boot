@@ -7,6 +7,7 @@ package com.wql.boot.wqlboot.controller.hello;
 
 import java.io.IOException;
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 import javax.servlet.http.HttpSession;
 
@@ -20,7 +21,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.wql.boot.wqlboot.common.properties.SystemParamProperty;
 import com.wql.boot.wqlboot.common.properties.WqlBootProperty;
 import com.wql.boot.wqlboot.service.mail.MailService;
-import com.wql.boot.wqlboot.service.rabbitmq.sender.HelloSender;
 
 import freemarker.template.TemplateException;
 
@@ -36,8 +36,8 @@ public class HelloController {
 //	@Autowired
 //	private TemplateEngine templateEngine;
 	 
-	@Autowired
-	private HelloSender helloSender;
+//	@Autowired
+//	private HelloSender helloSender;
 	
 	@Autowired
 	private RedissonClient redissonClient;
@@ -89,25 +89,31 @@ public class HelloController {
 	
 	
 	
-	@RequestMapping("/rabbitmq")
+	/*@RequestMapping("/rabbitmq")
 	public String rabbitmq() {
 		helloSender.send();
         return "Hello rabbitmq !!!";
-	}
+	}*/
 	
 	
 	@RequestMapping("/redissonClient")
 	public String redissonClient() {
 		RLock lock = redissonClient.getLock("TEST");
         try {
-            lock.lock();
-            String str = "========8081=========="+redisTemplate.opsForValue().get("COUNTER");
-            System.out.println(str);
-            return str;
+        	boolean tryLock = lock.tryLock(5000, 5000, TimeUnit.MILLISECONDS);
+            if(tryLock) {
+            	 String str = "========8081=========="+redisTemplate.opsForValue().get("COUNTER");
+                 System.out.println(str);
+                 return str;
+            } else {
+            	System.out.println("=========lock fail========");
+            }
         } catch (Exception ex) {
         	
         } finally {
-            lock.unlock();
+        	if(lock.isLocked()) {
+        		lock.unlock();
+        	}
         }
         return "Hello redissonClient !!!";
 	}
