@@ -35,7 +35,7 @@ public class HttpService {
 	 * @param headerMap
 	 * @return
 	 */
-	public String postForEntity(String url, Map<String, Object> paramMap, Map<String, Object> headerMap) {
+	public String doPostForEntity(String url, Map<String, Object> paramMap, Map<String, Object> headerMap) {
 		HttpHeaders headers = new HttpHeaders();
 		//表单提交
 		headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
@@ -63,7 +63,7 @@ public class HttpService {
 	 * @return
 	 */
 	@SuppressWarnings("all")
-	public String postForJson(String url, Map<String, Object> paramMap, Map<String, Object> headerMap) {
+	public String doPostForJson(String url, Map<String, Object> paramMap, Map<String, Object> headerMap) {
 		HttpHeaders headers = new HttpHeaders();
 		//json格式
 		headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
@@ -85,7 +85,7 @@ public class HttpService {
 	 * @param url
 	 * @return
 	 */
-	public String get(String url) {
+	public String doGet(String url) {
 		return restTemplate.getForObject(url, String.class);
 	}
 	
@@ -96,7 +96,7 @@ public class HttpService {
 	 * @param paramMap, 参数内容以Map接收 
 	 * @return
 	 */
-	public String get(String url, Map<String, String> paramMap) {
+	public String doGetWithParam(String url, Map<String, String> paramMap) {
 		return restTemplate.getForObject(url, String.class, paramMap);
 	}
 	
@@ -108,7 +108,7 @@ public class HttpService {
 	 * @return
 	 */
 	@SuppressWarnings("all")
-	public String getForJson(String url, Map<String, Object> paramMap, Map<String, Object> headerMap) {
+	public String doGetForJson(String url, Map<String, Object> paramMap, Map<String, Object> headerMap) {
 		HttpHeaders headers = new HttpHeaders();
 		//json格式
 		headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
