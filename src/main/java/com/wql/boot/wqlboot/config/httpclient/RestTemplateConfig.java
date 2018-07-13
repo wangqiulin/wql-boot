@@ -67,6 +67,34 @@ public class RestTemplateConfig {
 
 	
 	@Bean
+	public ClientHttpRequestFactory httpComponentsClientHttpRequestFactory(HttpClientBuilder httpClientBuilder) 
+			throws Exception{
+
+        SSLContext sslContext = new SSLContextBuilder().loadTrustMaterial(null, new TrustStrategy() {
+        	@Override
+            public boolean isTrusted(X509Certificate[] arg0, String arg1) throws CertificateException {
+                return true;
+            }
+        }).build();
+        httpClientBuilder.setSSLContext(sslContext);
+
+        SSLConnectionSocketFactory sslSocketFactory = new SSLConnectionSocketFactory(sslContext, NoopHostnameVerifier.INSTANCE);
+        Registry<ConnectionSocketFactory> socketFactoryRegistry = RegistryBuilder.<ConnectionSocketFactory>create()
+                .register(HTTP, PlainConnectionSocketFactory.getSocketFactory())
+                .register(HTTPS, sslSocketFactory)
+                .build();
+
+        PoolingHttpClientConnectionManager connMgr = new PoolingHttpClientConnectionManager(socketFactoryRegistry);
+        connMgr.setMaxTotal(maxConnTotalInt);
+        connMgr.setDefaultMaxPerRoute(maxConnPerRouteInt);
+        httpClientBuilder.setConnectionManager(connMgr);
+
+        CloseableHttpClient apacheClient = httpClientBuilder.build();
+		return new HttpComponentsClientHttpRequestFactory(apacheClient);
+	}
+	
+	
+	@Bean
 	public HttpClientBuilder httpClientBuilder(){
 		RequestConfig requestConfig = RequestConfig.custom()
 	            .setConnectTimeout(connectTimeout)
@@ -100,33 +128,5 @@ public class RestTemplateConfig {
 		return httpClientBuilder;
 	}
 	
-	
-	
-	@Bean
-	public ClientHttpRequestFactory httpComponentsClientHttpRequestFactory(HttpClientBuilder httpClientBuilder) 
-			throws Exception{
-
-        SSLContext sslContext = new SSLContextBuilder().loadTrustMaterial(null, new TrustStrategy() {
-        	@Override
-            public boolean isTrusted(X509Certificate[] arg0, String arg1) throws CertificateException {
-                return true;
-            }
-        }).build();
-        httpClientBuilder.setSSLContext(sslContext);
-
-        SSLConnectionSocketFactory sslSocketFactory = new SSLConnectionSocketFactory(sslContext, NoopHostnameVerifier.INSTANCE);
-        Registry<ConnectionSocketFactory> socketFactoryRegistry = RegistryBuilder.<ConnectionSocketFactory>create()
-                .register(HTTP, PlainConnectionSocketFactory.getSocketFactory())
-                .register(HTTPS, sslSocketFactory)
-                .build();
-
-        PoolingHttpClientConnectionManager connMgr = new PoolingHttpClientConnectionManager(socketFactoryRegistry);
-        connMgr.setMaxTotal(maxConnTotalInt);
-        connMgr.setDefaultMaxPerRoute(maxConnPerRouteInt);
-        httpClientBuilder.setConnectionManager(connMgr);
-
-        CloseableHttpClient apacheClient = httpClientBuilder.build();
-		return new HttpComponentsClientHttpRequestFactory(apacheClient);
-	}
 	
 }
