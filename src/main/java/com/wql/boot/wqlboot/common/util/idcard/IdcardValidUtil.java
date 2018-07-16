@@ -7,7 +7,8 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.apache.commons.lang3.StringUtils;
+import org.springframework.util.StringUtils;
+
 
 
 /**
@@ -81,11 +82,11 @@ public class IdcardValidUtil {
 	 * @return  是否合法
 	 */
 	public static boolean isValidCardNo(String cardNo) {
-		if (!StringUtils.isNoneBlank(cardNo)) {
+		if (!StringUtils.hasText(cardNo)) {
 			return false;
 		}
 		// 长度必须为18位
-		if (cardNo.trim().length() != 18) {
+		if (StringUtils.trimAllWhitespace(cardNo).length() != 18) {
 			return false;
 		}			
 		final String ai = cardNo.substring(0, 17);

@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.cglib.beans.BeanCopier;
 import org.springframework.util.Assert;
+import org.springframework.util.StringUtils;
 
 import com.alibaba.fastjson.JSON;
 
