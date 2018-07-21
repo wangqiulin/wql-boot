@@ -1,6 +1,7 @@
 package com.wql.boot.wqlboot.config.swagger;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
@@ -20,12 +21,13 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
  */
 @Configuration
 @EnableSwagger2
+@ConditionalOnExpression("${wql-boot.config.swagger.enabled:true}")
 public class SwaggerConfig {
 
 	@Value("${wql-boot.config.controller.location}")
 	private String controllerLocation;
 	
-	@Value("${wql-boot.config.swagger.enabled : true}") 
+	@Value("${wql-boot.config.swagger.enabled:true}") 
 	private Boolean enabled;
 	
 	@Lazy
@@ -42,7 +44,7 @@ public class SwaggerConfig {
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("wql-boot restful apis")
+                .title("WQL-BOOT API接口")
                 .description("wql-boot")
                 .termsOfServiceUrl("http://localhost:8081/")
                 //.contact("wql")
