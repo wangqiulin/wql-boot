@@ -14,7 +14,7 @@
 // * @date 2018年5月12日
 // */
 //@Configuration
-//@ComponentScan(basePackages = "com.wql.boot.wqlboot.jobhandler")
+//@ComponentScan(basePackages = "com.wql.boot.wqlboot.job")
 //public class XxlJobConfig {
 //	
 //    private Logger logger = LoggerFactory.getLogger(XxlJobConfig.class);
