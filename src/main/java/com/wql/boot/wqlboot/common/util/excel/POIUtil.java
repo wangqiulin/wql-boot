@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.List;
 
 //import org.apache.poi.hssf.util.HSSFCellUtil;
 import org.apache.poi.ss.usermodel.Row;
@@ -14,8 +13,6 @@ import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.apache.poi.ss.util.CellUtil;
 import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-
-import com.wql.boot.wqlboot.domain.user.User;
 
 /**
  * 
@@ -76,7 +73,6 @@ public class POIUtil {
      * @param filePath 文件路径
      * @throws IOException
      */
-    @SuppressWarnings("resource")
 	public static void Excel2007AboveOperate(String filePath) throws IOException {
         XSSFWorkbook workbook1 = new XSSFWorkbook(new FileInputStream(new File(filePath)));
         SXSSFWorkbook sxssfWorkbook = new SXSSFWorkbook(workbook1, 100);
@@ -101,55 +97,6 @@ public class POIUtil {
         out.close();
     }
     
-    
-    /**
-     * 真实对象
-     * 
-     * @param filePath
-     * @param headList
-     * @param dataList
-     * @throws IOException
-     */
-	public static void Excel2007AboveOperate(String filePath, List<String> headList, List<User> dataList) throws IOException {
-        XSSFWorkbook workbook1 = new XSSFWorkbook(new FileInputStream(new File(filePath)));
-        SXSSFWorkbook sxssfWorkbook = new SXSSFWorkbook(workbook1, 100);
-        Sheet first = sxssfWorkbook.getSheetAt(0);
-        //
-        int headSize = headList.size();
-        int totalSize = dataList.size();
-        for (int i = 0; i < totalSize; i++) {
-        	Row row = first.createRow(i);
-            for (int j = 0; j < headSize; j++) {
-                if(i == 0) {
-                    // 首行
-                    row.createCell(j).setCellValue(headList.get(j));
-                } else {
-                    // 数据
-                	switch (j) {
-						case 0:
-							CellUtil.createCell(row, j, String.valueOf(i));
-							break;
-						case 1:
-							CellUtil.createCell(row, j, String.valueOf(dataList.get(i).getId()));
-							break;
-						case 2:
-							CellUtil.createCell(row, j, String.valueOf(dataList.get(i).getUserName()));
-							break;
-						case 3:
-							CellUtil.createCell(row, j, String.valueOf(dataList.get(i).getPassword()));
-							break;
-						default:
-							break;
-					}
-                }
-            }
-		}
-        FileOutputStream out = new FileOutputStream(filePath);
-        sxssfWorkbook.write(out);
-        out.close();
-    }
-    
-
     public static void MathRandomCastTime() {
         long beginTime = System.currentTimeMillis();
         for (int i = 0; i < 10000000; i++) {

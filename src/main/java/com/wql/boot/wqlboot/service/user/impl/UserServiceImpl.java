@@ -1,19 +1,23 @@
 package com.wql.boot.wqlboot.service.user.impl;
 
+import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.CachePut;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.wql.boot.wqlboot.domain.user.User;
+import com.wql.boot.wqlboot.common.constant.BusinessException;
+import com.wql.boot.wqlboot.common.constant.DataResponse;
+import com.wql.boot.wqlboot.common.enums.BusinessEnum;
+import com.wql.boot.wqlboot.common.util.pwd.PwdEncoderUtil;
 import com.wql.boot.wqlboot.mapper.user.UserMapper;
+import com.wql.boot.wqlboot.model.domain.user.User;
+import com.wql.boot.wqlboot.model.req.user.UserLoginReq;
+import com.wql.boot.wqlboot.model.req.user.UserRegisterReq;
+import com.wql.boot.wqlboot.model.req.user.UserUpdateReq;
 import com.wql.boot.wqlboot.service.user.UserService;
-
-import tk.mybatis.mapper.entity.Example;
 
 /**
  *
@@ -27,32 +31,84 @@ public class UserServiceImpl implements UserService {
 	private UserMapper userMapper;
 	
 	
-	@Transactional
+	@Transactional(rollbackFor=RuntimeException.class)
 	@Override
-	public void register(User user) {
-		user.setId(null);
-		int i = userMapper.insertSelective(user);
-		if(i < 1) {
-			throw new RuntimeException("注册失败");
-		}
-	}
-	
-	
-	@Override
-	public void login(String name, String password) {
+	public DataResponse register(UserRegisterReq req) {
 		User record = new User();
-		record.setUserName(name);
+		record.setUserName(req.getUserName());
+		//查询是否存在
 		User user = userMapper.selectOne(record);
-		if(null == user) {
-			return ;
+		if(user != null) {
+			throw new BusinessException(BusinessEnum.USER_EXIST);
 		}
-		if(!password.equals(user.getPassword())) {
-			return ;
+		//保存
+		record.setDataId(null);
+		record.setUserPwd(PwdEncoderUtil.encrypt(req.getPassword()));
+		record.setCreated(new Date());
+		record.setUpdated(record.getCreated());
+		int flag = userMapper.insertSelective(record);
+		if(flag != 1) {
+			throw new BusinessException(BusinessEnum.USER_REGISTER_FAIL);
 		}
+		return new DataResponse(BusinessEnum.SUCCESS);
 	}
 	
 	
-	@Cacheable(cacheNames="user", key = "#name")
+	@Override
+	public DataResponse login(UserLoginReq req) {
+		User record = new User();
+		record.setUserName(req.getUserName());
+		User user = userMapper.selectOne(record);
+		if(user == null) {
+			throw new BusinessException(BusinessEnum.USER_NOT_EXIST);
+		}
+		if(!PwdEncoderUtil.match(req.getPassword(), user.getUserPwd())) {
+			throw new BusinessException(BusinessEnum.USER_PWD_ERROR);
+		}
+		//登录成功
+		return new DataResponse(BusinessEnum.SUCCESS);
+	}
+	
+	
+	@Override
+	public DataResponse queryUser(String userName) {
+		User record = new User();
+		record.setUserName(userName);
+		User user = userMapper.selectOne(record);
+		if(user == null) {
+			throw new BusinessException(BusinessEnum.USER_NOT_EXIST);
+		}
+		return new DataResponse(BusinessEnum.SUCCESS, user);
+	}
+	
+	
+	@Override
+	public DataResponse queryAll() {
+		List<User> list = userMapper.selectAll();
+		return new DataResponse(BusinessEnum.SUCCESS, list);
+	}
+	
+	@Override
+	public DataResponse updateUser(UserUpdateReq req) {
+		User record = new User();
+		record.setDataId(req.getDataId());
+		record.setUserName(req.getUserName());
+		if(StringUtils.isNotBlank(req.getUserPwd())) {
+			record.setUserPwd(PwdEncoderUtil.encrypt(req.getUserPwd()));
+		}
+		int flag = userMapper.updateByPrimaryKeySelective(record);
+		return flag == 1 ? new DataResponse(BusinessEnum.SUCCESS) : new DataResponse(BusinessEnum.FAIL);
+	}
+	
+	
+	@Override
+	public DataResponse deleteUser(Integer dataId) {
+		int flag = userMapper.deleteByPrimaryKey(dataId);
+		return flag == 1 ? new DataResponse(BusinessEnum.SUCCESS) : new DataResponse(BusinessEnum.FAIL);
+	}
+	
+	
+	/*@Cacheable(cacheNames="user", key = "#name")
 	@Override
 	public User queryByName(String name) {
 		User record = new User();
@@ -83,12 +139,7 @@ public class UserServiceImpl implements UserService {
 		User record = new User();
 		record.setUserName(name);
 		userMapper.delete(record);
-	}
+	}*/
 	
-	
-	@Override
-	public List<User> queryList() {
-		return userMapper.select(null);
-	}
 	
 }

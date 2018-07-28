@@ -1,7 +1,7 @@
 package com.wql.boot.wqlboot.mapper.user;
 
 import com.wql.boot.wqlboot.common.mymapper.MyMapper;
-import com.wql.boot.wqlboot.domain.user.User;
+import com.wql.boot.wqlboot.model.domain.user.User;
 
 /**
  *

@@ -1,8 +1,9 @@
 package com.wql.boot.wqlboot.service.user;
 
-import java.util.List;
-
-import com.wql.boot.wqlboot.domain.user.User;
+import com.wql.boot.wqlboot.common.constant.DataResponse;
+import com.wql.boot.wqlboot.model.req.user.UserLoginReq;
+import com.wql.boot.wqlboot.model.req.user.UserRegisterReq;
+import com.wql.boot.wqlboot.model.req.user.UserUpdateReq;
 
 /**
  *
@@ -11,16 +12,45 @@ import com.wql.boot.wqlboot.domain.user.User;
  */
 public interface UserService {
 
-	void register(User user);
+	/**
+	 * 用户注册
+	 * @param req
+	 */
+	DataResponse register(UserRegisterReq req);
 
-	void login(String name, String password);
+	/**
+	 * 用户登录
+	 * @param req
+	 */
+	DataResponse login(UserLoginReq req);
 
-	User queryByName(String name);
-	
-	void updateByName(String name, String password);
-	
-	void deleteByName(String name);
+	/**
+	 * 根据用户名， 查询用户
+	 * @param userName
+	 * @return
+	 */
+	DataResponse queryUser(String userName);
 
-	List<User> queryList();
+	/**
+	 * 查询用户列表
+	 * @return
+	 */
+	DataResponse queryAll();
 	
+	/**
+	 * 修改用户信息
+	 * @param req
+	 * @return
+	 */
+	DataResponse updateUser(UserUpdateReq req);
+
+	/**
+	 * 删除用户信息
+	 * @param dataId
+	 * @return
+	 */
+	DataResponse deleteUser(Integer dataId);
+
+	
+
 }

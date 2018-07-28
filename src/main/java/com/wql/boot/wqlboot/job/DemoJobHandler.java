@@ -1,5 +1,7 @@
-package com.wql.boot.wqlboot.jobhandler;
+package com.wql.boot.wqlboot.job;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import com.xxl.job.core.biz.model.ReturnT;
@@ -17,17 +19,16 @@ import com.xxl.job.core.log.XxlJobLogger;
 @Component
 public class DemoJobHandler extends IJobHandler {
 	
+	private static final Logger logger = LoggerFactory.getLogger(DemoJobHandler.class);
+	
 	@Override
 	public ReturnT<String> execute(String arg0) throws Exception {
-		XxlJobLogger.log("---begin-->");
 		try {
-			System.out.println("=====demoJobHandler=======");
+			logger.info("-----job.execute------");
 		} catch (Exception e) {
 			XxlJobLogger.log("出现异常:"+e);
             return FAIL;
-		} finally {
-			XxlJobLogger.log("---end-->");
-		}
+		} 
 		return SUCCESS;
 	}
 	

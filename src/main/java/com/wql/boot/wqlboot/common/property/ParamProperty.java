@@ -1,4 +1,4 @@
-package com.wql.boot.wqlboot.common.properties;
+package com.wql.boot.wqlboot.common.property;
 
 import com.xxl.conf.core.annotation.XxlConf;
 import org.springframework.stereotype.Component;
@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
  * @date 2018年5月12日
  */
 @Component
-public class SystemParamProperty {
+public class ParamProperty {
 
 	@XxlConf("default.key02")
 	public String paramKey02;

@@ -24,11 +24,8 @@ import com.alibaba.druid.support.http.WebStatFilter;
  */
 @Configuration
 @ConditionalOnClass({DruidDataSource.class})
-@ConditionalOnProperty(
-        name = {"spring.datasource.type"},
-        havingValue = "com.alibaba.druid.pool.DruidDataSource",
-        matchIfMissing = true
-)
+@ConditionalOnProperty(name = {"spring.datasource.type"},
+        havingValue = "com.alibaba.druid.pool.DruidDataSource", matchIfMissing = true)
 public class DruidConfig {
 
 	@SuppressWarnings("unchecked")

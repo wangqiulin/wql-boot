@@ -34,7 +34,7 @@ public class MyBatisConfig implements TransactionManagementConfigurer {
     public SqlSessionFactory sqlSessionFactoryBean() {
 		MySqlSessionFactoryBean bean = new MySqlSessionFactoryBean();
         bean.setDataSource(dataSource);
-        bean.setTypeAliasesPackage("com.wql.boot.wqlboot.domain");
+        bean.setTypeAliasesPackage("com.wql.boot.wqlboot.model.domain");
         //用于数据解密
         bean.setAliasPackage("com.wql.boot.wqlboot.config.mybatis");
         bean.setHandlePackage("com.wql.boot.wqlboot.config.mybatis");
