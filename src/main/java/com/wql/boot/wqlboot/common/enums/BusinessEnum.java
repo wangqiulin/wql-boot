@@ -13,6 +13,7 @@ public enum BusinessEnum {
 	 */
 	SUCCESS("0000", "处理成功"),
 	FAIL("1000", "系统异常"), 
+	PARAM_FAIL("1001", "参数异常"), 
 	
 	/**
 	 * 业务级别
