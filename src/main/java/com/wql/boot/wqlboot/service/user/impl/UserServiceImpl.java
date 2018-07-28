@@ -2,6 +2,7 @@ package com.wql.boot.wqlboot.service.user.impl;
 
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.util.Assert;
 import com.wql.boot.wqlboot.common.constant.BusinessException;
 import com.wql.boot.wqlboot.common.constant.DataResponse;
 import com.wql.boot.wqlboot.common.enums.BusinessEnum;
+import com.wql.boot.wqlboot.common.support.RedisService;
 import com.wql.boot.wqlboot.common.util.pwd.PwdEncoderUtil;
 import com.wql.boot.wqlboot.mapper.user.UserMapper;
 import com.wql.boot.wqlboot.model.domain.user.User;
@@ -28,10 +30,14 @@ import com.wql.boot.wqlboot.service.user.UserService;
  */
 @Service
 public class UserServiceImpl implements UserService {
+	
+	//private static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
 
 	@Autowired
 	private UserMapper userMapper;
 	
+	@Autowired
+	private RedisService redisService;
 	
 	@Transactional(rollbackFor=RuntimeException.class)
 	@Override
@@ -75,7 +81,9 @@ public class UserServiceImpl implements UserService {
 			throw new BusinessException(BusinessEnum.USER_PWD_ERROR);
 		}
 		//登录成功
-		return new DataResponse(BusinessEnum.SUCCESS);
+		String uuid = UUID.randomUUID().toString().replaceAll("[-]", "");
+		redisService.setWithExByS("token", uuid, 300);
+		return new DataResponse(BusinessEnum.SUCCESS, uuid);
 	}
 	
 	

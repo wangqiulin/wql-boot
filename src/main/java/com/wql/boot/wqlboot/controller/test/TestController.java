@@ -1,9 +1,6 @@
 package com.wql.boot.wqlboot.controller.test;
 
-import java.util.UUID;
 import java.util.concurrent.TimeUnit;
-
-import javax.servlet.http.HttpSession;
 
 import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
@@ -32,18 +29,7 @@ public class TestController {
 	private RedissonClient redissonClient;
 	
 	@Autowired
-	private ParamProperty systemParamProperty;
-	
-	@GetMapping("/uid")
-	public String uid(HttpSession session) {
-		//测试spring-session共享
-        UUID uid = (UUID) session.getAttribute("uid");
-        if (uid == null) {
-            uid = UUID.randomUUID();
-        }
-        session.setAttribute("uid", uid);
-        return session.getId();
-    }
+	private ParamProperty paramProperty;
 	
 	@GetMapping("/redisson")
 	public String redissonClient() {
@@ -67,7 +53,7 @@ public class TestController {
 	@GetMapping("/xxlConf")
 	public String systemParam() {
 		//分布式xxl-conf
-        return systemParamProperty.paramKey02;
+        return paramProperty.paramKey02;
 	}
 	
 	
