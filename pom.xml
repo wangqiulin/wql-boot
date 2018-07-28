@@ -44,13 +44,6 @@
 	        <artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 		
-		<!-- 热启动，修改之后可以实时生效：开发环境的调试 
-		<dependency>
-	        <groupId>org.springframework.boot</groupId>
-	        <artifactId>spring-boot-devtools</artifactId>
-	        <optional>true</optional>
-		</dependency>-->
-		
 		<!-- 集成mybatis -->
 		<dependency>
 		    <groupId>org.mybatis.spring.boot</groupId>
@@ -123,12 +116,6 @@
 		    <artifactId>spring-session-data-redis</artifactId>
 		</dependency>
 		
-		<!-- mongodb
-		<dependency> 
-	        <groupId>org.springframework.boot</groupId>
-	        <artifactId>spring-boot-starter-data-mongodb</artifactId>
-	    </dependency>  -->
-		
 		<!-- 邮件服务 -->
 		<dependency> 
 	        <groupId>org.springframework.boot</groupId>
@@ -182,20 +169,6 @@
             <groupId>com.xuxueli</groupId>
             <artifactId>xxl-conf-core</artifactId>
             <version>1.4.2-SNAPSHOT</version>
-        </dependency>
-        
-        <!-- xxl-search-client -->
-        <dependency>
-            <groupId>com.xxl</groupId>
-            <artifactId>xxl-search-client</artifactId>
-            <version>1.0.0</version>
-        </dependency>
-        
-        <!-- xxl-excel -->
-        <dependency>
-        	<groupId>com.xuxueli</groupId>
-		    <artifactId>xxl-excel</artifactId>
-		    <version>1.1.1-SNAPSHOT</version>
         </dependency>
         
         <!-- 导出大量的excel内容 -->
@@ -277,10 +250,6 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
-				<!-- 热启动添加的配置
-				<configuration>
-	                <fork>true</fork>
-	            </configuration> -->
 			</plugin>
 		</plugins>
 	</build>
