@@ -1,5 +1,7 @@
 package com.wql.boot.wqlboot.controller.test;
 
+import io.swagger.annotations.Api;
+
 import java.util.concurrent.TimeUnit;
 
 import org.redisson.api.RLock;
@@ -11,8 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.wql.boot.wqlboot.common.property.ParamProperty;
-
-import io.swagger.annotations.Api;
+import com.wql.boot.wqlboot.service.user.UserService;
 
 /**
  *
@@ -30,6 +31,9 @@ public class TestController {
 	
 	@Autowired
 	private ParamProperty paramProperty;
+	
+	@Autowired
+	private UserService userService;
 	
 	@GetMapping("/redisson")
 	public String redissonClient() {
@@ -54,6 +58,11 @@ public class TestController {
 	public String systemParam() {
 		//分布式xxl-conf
         return paramProperty.paramKey02;
+	}
+	
+	@GetMapping("/export")
+	public void export(){
+	    userService.export();
 	}
 	
 	

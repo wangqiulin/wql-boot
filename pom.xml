@@ -171,6 +171,21 @@
             <version>1.5.0</version>
         </dependency>
         
+        <!-- xxl-emoji -->
+        <dependency>
+		    <groupId>com.xuxueli</groupId>
+		    <artifactId>xxl-emoji</artifactId>
+		    <version>1.0.0</version>
+		</dependency>
+		
+		<!-- xxl-excel -->
+		<dependency>
+		    <groupId>com.xuxueli</groupId>
+		    <artifactId>xxl-excel</artifactId>
+		    <version>1.1.0</version>
+		</dependency>
+		
+        
         <!-- 导出大量的excel内容 -->
         <dependency>
             <groupId>org.apache.poi</groupId>

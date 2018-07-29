@@ -1,9 +1,13 @@
 package com.wql.boot.wqlboot.service.user.impl;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
+import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,7 +24,9 @@ import com.wql.boot.wqlboot.model.domain.user.User;
 import com.wql.boot.wqlboot.model.req.user.UserLoginReq;
 import com.wql.boot.wqlboot.model.req.user.UserRegisterReq;
 import com.wql.boot.wqlboot.model.req.user.UserUpdateReq;
+import com.wql.boot.wqlboot.model.res.user.UserExcelResult;
 import com.wql.boot.wqlboot.service.user.UserService;
+import com.xuxueli.poi.excel.ExcelExportUtil;
 
 /**
  * 
@@ -128,6 +134,31 @@ public class UserServiceImpl implements UserService {
 		Assert.isTrue(dataId != null, "dataId不能为空");
 		int flag = userMapper.deleteByPrimaryKey(dataId);
 		return flag == 1 ? new DataResponse(BusinessEnum.SUCCESS) : new DataResponse(BusinessEnum.FAIL);
+	}
+	
+	
+	@Override
+	public void export() {
+	    List<UserExcelResult> resultList = new ArrayList<UserExcelResult>();
+	    List<User> list = userMapper.selectAll();
+	    for (User user : list) {
+	        UserExcelResult result = new UserExcelResult();
+            try {
+                BeanUtils.copyProperties(result, user);
+            } catch (Exception e) {
+            }
+            resultList.add(result);
+        }
+	    
+	    String filePath = "E://test2.xls";
+	    File file = new File(filePath);
+	    if(!file.exists()){
+	        try {
+                file.createNewFile();
+            } catch (IOException e) {
+            }
+	    }
+	    ExcelExportUtil.exportToFile(filePath, resultList);
 	}
 	
 	

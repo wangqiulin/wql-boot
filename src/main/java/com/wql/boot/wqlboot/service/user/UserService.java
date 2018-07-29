@@ -51,6 +51,11 @@ public interface UserService {
 	 */
 	DataResponse deleteUser(Integer dataId);
 
+	/**
+	 * 导出excel
+	 */
+    void export();
+
 	
 
 }
