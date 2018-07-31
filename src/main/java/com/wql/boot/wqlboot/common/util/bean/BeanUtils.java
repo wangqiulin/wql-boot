@@ -21,7 +21,6 @@ public class BeanUtils extends org.springframework.beans.BeanUtils{
 
     /**
      * 基于cglib进行对象复制
-     * @author shengguofan
      * @param source 被复制的对象
      * @param clazz 复制对象类型
      * @return
@@ -38,7 +37,6 @@ public class BeanUtils extends org.springframework.beans.BeanUtils{
 
     /**
      * 基于cglib进行对象复制
-     *
      * @param source 被复制的对象
      * @param target 复制对象
      * @return
@@ -52,7 +50,6 @@ public class BeanUtils extends org.springframework.beans.BeanUtils{
 
     /**
      * 基于cglib进行对象组复制
-     * @author shengguofan
      * @param datas 被复制的对象数组
      * @param clazz 复制对象
      * @return
@@ -70,8 +67,6 @@ public class BeanUtils extends org.springframework.beans.BeanUtils{
     
     /**
      * 利用fastjson进行深拷贝
-     * 
-     * @author shengguofan
      * @param datas
      * @param clazz
      * @return
@@ -85,7 +80,6 @@ public class BeanUtils extends org.springframework.beans.BeanUtils{
     
     /**
      * 通过class实例化对象
-     * @author shengguofan
      * @param clazz
      * @return
      * @throws RuntimeException

@@ -61,8 +61,8 @@ public class TestController {
 	}
 	
 	@GetMapping("/export")
-	public void export(){
-	    userService.export();
+	public void export(String filePath){
+	    userService.export(filePath);
 	}
 	
 	

@@ -2,12 +2,10 @@ package com.wql.boot.wqlboot.service.user.impl;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
-import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,6 +16,7 @@ import com.wql.boot.wqlboot.common.constant.BusinessEnum;
 import com.wql.boot.wqlboot.common.constant.BusinessException;
 import com.wql.boot.wqlboot.common.constant.DataResponse;
 import com.wql.boot.wqlboot.common.support.RedisService;
+import com.wql.boot.wqlboot.common.util.bean.BeanUtils;
 import com.wql.boot.wqlboot.common.util.pwd.PwdEncoderUtil;
 import com.wql.boot.wqlboot.mapper.user.UserMapper;
 import com.wql.boot.wqlboot.model.domain.user.User;
@@ -138,26 +137,19 @@ public class UserServiceImpl implements UserService {
 	
 	
 	@Override
-	public void export() {
-	    List<UserExcelResult> resultList = new ArrayList<UserExcelResult>();
-	    List<User> list = userMapper.selectAll();
-	    for (User user : list) {
-	        UserExcelResult result = new UserExcelResult();
-            try {
-                BeanUtils.copyProperties(result, user);
-            } catch (Exception e) {
-            }
-            resultList.add(result);
-        }
-	    
-	    String filePath = "E://test2.xls";
-	    File file = new File(filePath);
+	public void export(String filePath) {
+		//创建文件
+		File file = new File(filePath);
 	    if(!file.exists()){
 	        try {
                 file.createNewFile();
             } catch (IOException e) {
             }
 	    }
+		//查询数据
+	    List<User> list = userMapper.selectAll();
+	    List<UserExcelResult> resultList = BeanUtils.copyByList(list, UserExcelResult.class);
+	    //导出
 	    ExcelExportUtil.exportToFile(filePath, resultList);
 	}
 	
