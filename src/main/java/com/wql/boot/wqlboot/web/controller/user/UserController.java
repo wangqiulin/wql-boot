@@ -1,4 +1,4 @@
-package com.wql.boot.wqlboot.controller.user;
+package com.wql.boot.wqlboot.web.controller.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;

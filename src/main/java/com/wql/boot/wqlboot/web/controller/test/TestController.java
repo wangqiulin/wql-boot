@@ -1,4 +1,4 @@
-package com.wql.boot.wqlboot.controller.test;
+package com.wql.boot.wqlboot.web.controller.test;
 
 import io.swagger.annotations.Api;
 

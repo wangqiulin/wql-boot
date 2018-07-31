@@ -1,4 +1,4 @@
-package com.wql.boot.wqlboot.common.aspect;
+package com.wql.boot.wqlboot.web.aspect;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;

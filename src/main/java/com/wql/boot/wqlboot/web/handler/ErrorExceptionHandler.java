@@ -1,4 +1,4 @@
-package com.wql.boot.wqlboot.common.handler;
+package com.wql.boot.wqlboot.web.handler;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.alibaba.fastjson.support.spring.FastJsonJsonView;
+import com.wql.boot.wqlboot.common.constant.BusinessEnum;
 import com.wql.boot.wqlboot.common.constant.BusinessException;
-import com.wql.boot.wqlboot.common.enums.BusinessEnum;
 
 /**
  * 异常处理机制

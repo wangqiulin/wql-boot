@@ -1,7 +1,5 @@
 package com.wql.boot.wqlboot.common.constant;
 
-import com.wql.boot.wqlboot.common.enums.BusinessEnum;
-
 /**
  * 数据响应类
  * @author wangqiulin

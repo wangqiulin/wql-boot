@@ -1,4 +1,4 @@
-package com.wql.boot.wqlboot.common.enums;
+package com.wql.boot.wqlboot.common.constant;
 
 /**
  * 系统枚举类
