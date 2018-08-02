@@ -7,10 +7,19 @@ package com.wql.boot.wqlboot.common.constant;
  */
 public class DataResponse {
 
+	/**
+	 * 响应code
+	 */
 	private String code;
 	
+	/**
+	 * 响应描述
+	 */
 	private String msg;
 	
+	/**
+	 * 返回数据
+	 */
 	private Object data;
 
 	public DataResponse(BusinessEnum busEnum) {
