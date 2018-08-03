@@ -12,6 +12,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.regex.Pattern;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.StringUtils;
@@ -62,7 +63,8 @@ public class CsvDownloadUtil {
         response.getWriter().flush();
     }
 
-    public static void writeHeader(Map<String, String> csvHeader, String fileName, HttpServletResponse response) throws IOException {
+    public static void writeHeader(Map<String, String> csvHeader, String fileName, 
+    		HttpServletRequest request, HttpServletResponse response) throws IOException {
         String header = Arrays.toString(csvHeader.values().toArray()).replace("[", "").replace("]", "");
         response.reset();
         fileName = overrideFileName(fileName + ".csv");
@@ -73,6 +75,8 @@ public class CsvDownloadUtil {
         response.setHeader("Access-Control-Allow-Method", "*");
         response.setHeader("Access-Control-Max-Age", "86400");
         response.setCharacterEncoding("utf-8");
+        //解决下载时中文名乱码
+        fileName = DownLoadUtils.getAttachmentFileName(request.getHeader("user-agent"), fileName);
         response.setHeader("content-disposition", "attachment;filename=" + fileName);
         response.setContentType("application/octet-stream;file-name=" + fileName);
         response.getWriter().println(header);

@@ -23,6 +23,10 @@ import com.wql.boot.wqlboot.common.constant.BusinessException;
  */
 @ControllerAdvice
 public class ErrorExceptionHandler {
+	
+	private static final String CODE = "code";
+	private static final String MSG = "msg";
+	
 
 	/** 自定义业务异常处理  */
 	@ExceptionHandler({ BusinessException.class })
@@ -32,8 +36,8 @@ public class ErrorExceptionHandler {
          //使用FastJson提供的FastJsonJsonView视图返回，不需要捕获异常	
          FastJsonJsonView view = new FastJsonJsonView();
          Map<String, Object> attributes = new HashMap<String, Object>();
-         attributes.put("code", busExp.getCode());
-         attributes.put("msg", busExp.getMsg());
+         attributes.put(CODE, busExp.getCode());
+         attributes.put(MSG, busExp.getMsg());
          view.setAttributesMap(attributes);
          mv.setView(view); 
          return mv;
@@ -46,8 +50,8 @@ public class ErrorExceptionHandler {
 		 ModelAndView mv = new ModelAndView();
          FastJsonJsonView view = new FastJsonJsonView();
          Map<String, Object> attributes = new HashMap<String, Object>();
-         attributes.put("code", BusinessEnum.PARAM_FAIL.getCode());
-         attributes.put("msg", BusinessEnum.PARAM_FAIL.getMsg());
+         attributes.put(CODE, BusinessEnum.PARAM_FAIL.getCode());
+         attributes.put(MSG, BusinessEnum.PARAM_FAIL.getMsg());
          view.setAttributesMap(attributes);
          mv.setView(view); 
          return mv;
@@ -60,8 +64,8 @@ public class ErrorExceptionHandler {
 		ModelAndView mv = new ModelAndView();
         FastJsonJsonView view = new FastJsonJsonView();
         Map<String, Object> attributes = new HashMap<String, Object>();
-        attributes.put("code", BusinessEnum.FAIL.getCode());
-        attributes.put("msg", BusinessEnum.FAIL.getMsg());
+        attributes.put(CODE, BusinessEnum.FAIL.getCode());
+        attributes.put(MSG, BusinessEnum.FAIL.getMsg());
         view.setAttributesMap(attributes);
         mv.setView(view); 
         return mv;

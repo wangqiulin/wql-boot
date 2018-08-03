@@ -12,9 +12,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.wql.boot.wqlboot.common.constant.BusinessEnum;
 import com.wql.boot.wqlboot.common.constant.BusinessException;
 import com.wql.boot.wqlboot.common.constant.DataResponse;
+import com.wql.boot.wqlboot.common.support.ElasticSearchService;
 import com.wql.boot.wqlboot.common.support.RedisService;
 import com.wql.boot.wqlboot.common.util.bean.BeanUtils;
 import com.wql.boot.wqlboot.common.util.pwd.PwdEncoderUtil;
@@ -44,6 +47,10 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	private RedisService redisService;
 	
+	@Autowired
+	private ElasticSearchService elasticSearchService;
+	
+	
 	@Transactional(rollbackFor=RuntimeException.class)
 	@Override
 	public DataResponse register(UserRegisterReq req) {
@@ -66,6 +73,8 @@ public class UserServiceImpl implements UserService {
 		if(flag != 1) {
 			throw new BusinessException(BusinessEnum.USER_REGISTER_FAIL);
 		}
+		//将数据保存到索引库
+		elasticSearchService.addSingle("wql-boot", "user", record.getDataId()+"", JSON.toJSONString(record));
 		return new DataResponse(BusinessEnum.SUCCESS);
 	}
 	
@@ -102,6 +111,9 @@ public class UserServiceImpl implements UserService {
 		if(user == null) {
 			throw new BusinessException(BusinessEnum.USER_NOT_EXIST);
 		}
+		
+		String es_user = elasticSearchService.searchById("wql-boot", "user", user.getDataId()+"");
+		user = JSONObject.parseObject(es_user, User.class);
 		return new DataResponse(BusinessEnum.SUCCESS, user);
 	}
 	
