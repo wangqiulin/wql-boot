@@ -74,7 +74,7 @@ public class UserServiceImpl implements UserService {
 			throw new BusinessException(BusinessEnum.USER_REGISTER_FAIL);
 		}
 		//将数据保存到索引库
-		elasticSearchService.addSingle("wql-boot", "user", record.getDataId()+"", JSON.toJSONString(record));
+		elasticSearchService.addSingle("wqlboot", "user", record.getDataId()+"", JSON.toJSONString(record));
 		return new DataResponse(BusinessEnum.SUCCESS);
 	}
 	
@@ -112,7 +112,7 @@ public class UserServiceImpl implements UserService {
 			throw new BusinessException(BusinessEnum.USER_NOT_EXIST);
 		}
 		
-		String es_user = elasticSearchService.searchById("wql-boot", "user", user.getDataId()+"");
+		String es_user = elasticSearchService.searchById("wqlboot", "user", user.getDataId()+"");
 		user = JSONObject.parseObject(es_user, User.class);
 		return new DataResponse(BusinessEnum.SUCCESS, user);
 	}
@@ -142,6 +142,8 @@ public class UserServiceImpl implements UserService {
 	
 	@Override
 	public DataResponse deleteUser(Integer dataId) {
+		elasticSearchService.deleteDoc("wqlboot", "user", dataId+"");
+		
 		Assert.isTrue(dataId != null, "dataId不能为空");
 		int flag = userMapper.deleteByPrimaryKey(dataId);
 		return flag == 1 ? new DataResponse(BusinessEnum.SUCCESS) : new DataResponse(BusinessEnum.FAIL);
