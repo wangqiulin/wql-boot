@@ -70,19 +70,20 @@ public class ElasticSearchConfig implements FactoryBean<TransportClient>, Initia
 					.put("client.transport.sniff", true)
 					.build();
 			
-        	TransportClient  preBuiltTransportClient = new PreBuiltTransportClient(settings);
+        	TransportClient preBuiltTransportClient = new PreBuiltTransportClient(settings);
         	if(StringUtils.isNoneBlank(clusterNodes)) {
                 for (String nodes:clusterNodes.split(",")) {
                     String InetSocket [] = nodes.split(":");
-                    String  Address = InetSocket[0];
-                    Integer  port = Integer.valueOf(InetSocket[1]);
+                    String Address = InetSocket[0];
+                    Integer port = Integer.valueOf(InetSocket[1]);
                     preBuiltTransportClient.addTransportAddress(new
-                                     TransportAddress(InetAddress.getByName(Address),port ));
+                    		TransportAddress(InetAddress.getByName(Address),port ));
                 }
                 client = preBuiltTransportClient;
             }
         } catch (UnknownHostException e) {
-            logger.error(e.getMessage());
+            logger.error("创建ES client时异常", e);
+            throw new RuntimeException(e.getMessage());
         }
     }
 	

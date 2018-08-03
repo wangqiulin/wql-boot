@@ -5,6 +5,8 @@ import java.util.Map;
 
 import javax.validation.ValidationException;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -24,6 +26,8 @@ import com.wql.boot.wqlboot.common.constant.BusinessException;
 @ControllerAdvice
 public class ErrorExceptionHandler {
 	
+	private static final Logger logger = LoggerFactory.getLogger(ErrorExceptionHandler.class);
+	
 	private static final String CODE = "code";
 	private static final String MSG = "msg";
 	
@@ -32,6 +36,7 @@ public class ErrorExceptionHandler {
 	@ExceptionHandler({ BusinessException.class })
 	@ResponseStatus(HttpStatus.OK)
 	public ModelAndView processException(BusinessException busExp) {
+		 logger.error("【业务异常】：", busExp);
 		 ModelAndView mv = new ModelAndView();
          //使用FastJson提供的FastJsonJsonView视图返回，不需要捕获异常	
          FastJsonJsonView view = new FastJsonJsonView();
@@ -47,6 +52,7 @@ public class ErrorExceptionHandler {
 	@ExceptionHandler({ ValidationException.class, IllegalArgumentException.class })
 	@ResponseStatus(HttpStatus.OK)
 	public ModelAndView processException() {
+		 logger.error("【参数异常】");
 		 ModelAndView mv = new ModelAndView();
          FastJsonJsonView view = new FastJsonJsonView();
          Map<String, Object> attributes = new HashMap<String, Object>();
@@ -61,6 +67,7 @@ public class ErrorExceptionHandler {
 	@ExceptionHandler({ Exception.class })
 	@ResponseStatus(HttpStatus.OK)
 	public ModelAndView processException(Exception exp) {
+		logger.error("【系统异常】：", exp);
 		ModelAndView mv = new ModelAndView();
         FastJsonJsonView view = new FastJsonJsonView();
         Map<String, Object> attributes = new HashMap<String, Object>();
