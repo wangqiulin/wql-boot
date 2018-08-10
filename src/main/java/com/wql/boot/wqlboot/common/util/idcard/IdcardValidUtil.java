@@ -9,8 +9,6 @@ import java.util.regex.Pattern;
 
 import org.springframework.util.StringUtils;
 
-
-
 /**
  * 身份证的严格校验工具类
  * 
