@@ -21,6 +21,19 @@
 	</properties>
 
 	<dependencies>
+		<!-- web工程 -->
+		<dependency>
+	        <groupId>org.springframework.boot</groupId>
+	        <artifactId>spring-boot-starter-web</artifactId>
+	        <exclusions>
+	        	<!-- 将应用打成war包时，需要将内置tomcat排除掉 -->
+	        	<!-- <exclusion>
+	        		<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-starter-tomcat</artifactId>
+	        	</exclusion> -->
+	        </exclusions>
+		</dependency>
+	
 	    <!-- 核心模块，包括自动配置支持、日志和YAML -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -32,12 +45,6 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
-		</dependency>
-		
-		<!-- web工程 -->
-		<dependency>
-	        <groupId>org.springframework.boot</groupId>
-	        <artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 		
 		<!-- 集成mybatis -->
@@ -64,6 +71,16 @@
 	        <artifactId>mapper</artifactId>
 	        <version>3.3.9</version>
 	    </dependency>
+	    
+	    <!-- 模板引擎 -->
+        <dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-freemarker</artifactId>
+		</dependency>
+		<dependency>
+		    <groupId>org.springframework.boot</groupId>
+		    <artifactId>spring-boot-starter-thymeleaf</artifactId>
+		</dependency>
 	    
 	    <!-- String字符串处理 -->
 		<dependency>
@@ -127,16 +144,6 @@
             <version>1.4.7</version>
         </dependency>
         
-		<!-- 模板引擎 -->
-        <dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-freemarker</artifactId>
-		</dependency>
-		<dependency>
-		    <groupId>org.springframework.boot</groupId>
-		    <artifactId>spring-boot-starter-thymeleaf</artifactId>
-		</dependency>
-		
 		<!-- rabbitmq 
 		<dependency> 
 			<groupId>org.springframework.boot</groupId>
@@ -271,6 +278,7 @@
            <artifactId>elasticsearch</artifactId>
            <version>6.0.0</version>
         </dependency>
+        
 	</dependencies>
 	<build>
 		<plugins>
