@@ -38,7 +38,6 @@ public class RSAUtils {
      */
     public static final String SIGNATURE_ALGORITHM = "MD5withRSA";
 
-    /** */
     /**
      * 获取公钥的key
      */
@@ -49,7 +48,6 @@ public class RSAUtils {
      */
     private static final String PRIVATE_KEY = "RSAPrivateKey";
 
-    /** */
     /**
      * RSA最大加密明文大小
      */
@@ -325,11 +323,10 @@ public class RSAUtils {
     /**
      * java端公钥加密
      */
-    public static String encryptedDataOnJava(String data, String PUBLICKEY) {
+    public static String encryptedDataOnJava(String data, String publicKey) {
         try {
-            data = Base64Utils.encode(encryptByPublicKey(data.getBytes(), PUBLICKEY));
+            data = Base64Utils.encode(encryptByPublicKey(data.getBytes(), publicKey));
         } catch (Exception e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         return data;
@@ -338,11 +335,11 @@ public class RSAUtils {
     /**
      * java端私钥解密
      */
-    public static String decryptDataOnJava(String data, String PRIVATEKEY) {
+    public static String decryptDataOnJava(String data, String privateKey) {
         String temp = "";
         try {
             byte[] rs = Base64Utils.decode(data);
-            temp = new String(RSAUtils.decryptByPrivateKey(rs, PRIVATEKEY),"UTF-8"); //以utf-8的方式生成字符串
+            temp = new String(RSAUtils.decryptByPrivateKey(rs, privateKey),"UTF-8"); //以utf-8的方式生成字符串
 
         } catch (Exception e) {
             e.printStackTrace();
