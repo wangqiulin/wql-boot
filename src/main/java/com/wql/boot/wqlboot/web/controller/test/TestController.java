@@ -47,9 +47,7 @@ public class TestController {
 		} catch (Exception e) {
         	logger.error("设置分布式锁异常：", e);
         } finally {
-        	if(lock != null) {
-        		lock.unlock();
-        	}
+        	lock.unlock();
         }
         return "exception";
 	}

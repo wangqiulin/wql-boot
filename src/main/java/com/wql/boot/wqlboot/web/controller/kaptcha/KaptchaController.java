@@ -1,4 +1,4 @@
-package com.wql.boot.wqlboot.web.controller.test;
+package com.wql.boot.wqlboot.web.controller.kaptcha;
 
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
@@ -8,8 +8,6 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,10 +23,8 @@ import com.google.code.kaptcha.impl.DefaultKaptcha;
 @Controller
 public class KaptchaController {
 
-	private static final Logger logger = LoggerFactory.getLogger(KaptchaController.class);
-
 	@Autowired
-	DefaultKaptcha defaultKaptcha;
+	private DefaultKaptcha defaultKaptcha;
 
 	@RequestMapping("/defaultKaptcha")
 	public void defaultKaptcha(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse)
@@ -69,11 +65,10 @@ public class KaptchaController {
 
 		if (!captchaId.equals(parameter)) {
 			andView.addObject("info", "错误的验证码");
-			andView.setViewName("index");
+			andView.setViewName("kaptcha/index");
 		} else {
 			andView.addObject("info", "登录成功");
 			andView.setViewName("succeed");
-
 		}
 		return andView;
 	}

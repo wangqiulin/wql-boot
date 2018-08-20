@@ -7,8 +7,9 @@ import java.net.NetworkInterface;
 import java.util.stream.Stream;
 
 import javax.annotation.Resource;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.aspectj.lang.JoinPoint;
@@ -20,6 +21,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
 import org.springframework.stereotype.Component;
+import org.springframework.validation.BindingResult;
 
 import com.alibaba.fastjson.JSON;
 
@@ -64,13 +66,6 @@ public class LoggerAspect {
 		}
 	}
 
-	/**
-	 * @param joinPoint
-	 * @param ip
-	 * @param mac
-	 * @param submitMethod
-	 * @param path
-	 */
 	private void printRequestLog(JoinPoint joinPoint, String ip, String mac, String submitMethod, String path) {
 		StringBuilder sb = new StringBuilder("\n-------------------------begin-------------------------");
 		sb.append("\nrequest info is -------->\n");
@@ -90,14 +85,13 @@ public class LoggerAspect {
 		log.info(sb.toString());
 	}
 
-	/**
-	 * 排除掉request,response对象
-	 */
+	
 	private Object[] excludeArgs(Object[] args) {
 		return Stream.of(args).filter(
-				arg -> !(arg instanceof HttpServletRequest 
-						|| arg instanceof HttpServletResponse 
-						|| arg instanceof HttpSession))
+				arg -> !(arg instanceof ServletRequest 
+						|| arg instanceof ServletResponse 
+						|| arg instanceof HttpSession) 
+						|| arg instanceof BindingResult)
 				.toArray();
 	}
 
@@ -116,9 +110,7 @@ public class LoggerAspect {
 		}
 	}
 
-	/**
-	 * 通过HttpServletRequest返回IP地址
-	 */
+	
 	public String getIpAddress(HttpServletRequest request) {
 		String ip = "";
 		try {

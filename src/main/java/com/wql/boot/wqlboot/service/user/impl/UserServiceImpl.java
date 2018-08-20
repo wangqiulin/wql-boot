@@ -51,8 +51,8 @@ public class UserServiceImpl implements UserService {
 	private ElasticSearchService elasticSearchService;
 	
 	
-	@Transactional(rollbackFor=RuntimeException.class)
 	@Override
+	@Transactional(rollbackFor=RuntimeException.class)
 	public DataResponse register(UserRegisterReq req) {
 		Assert.isTrue(StringUtils.isNotBlank(req.getUserName()), "用户名不能为空");
 		Assert.isTrue(StringUtils.isNotBlank(req.getPassword()), "密码不能为空");
@@ -126,6 +126,7 @@ public class UserServiceImpl implements UserService {
 	
 	
 	@Override
+	@Transactional(rollbackFor=RuntimeException.class)
 	public DataResponse updateUser(UserUpdateReq req) {
 		Assert.isTrue(req.getDataId() != null, "dataId不能为空");
 		
@@ -141,6 +142,7 @@ public class UserServiceImpl implements UserService {
 	
 	
 	@Override
+	@Transactional(rollbackFor=RuntimeException.class)
 	public DataResponse deleteUser(Integer dataId) {
 		elasticSearchService.deleteDoc("wqlboot", "user", dataId+"");
 		
