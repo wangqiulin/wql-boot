@@ -6,6 +6,7 @@ import javax.sql.DataSource;
 
 import org.apache.ibatis.plugin.Interceptor;
 import org.apache.ibatis.session.SqlSessionFactory;
+import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -32,12 +33,10 @@ public class MyBatisConfig implements TransactionManagementConfigurer {
 
 	@Bean(name = "sqlSessionFactory")
     public SqlSessionFactory sqlSessionFactoryBean() {
-		MySqlSessionFactoryBean bean = new MySqlSessionFactoryBean();
+		
+		SqlSessionFactoryBean bean = new SqlSessionFactoryBean();
         bean.setDataSource(dataSource);
         bean.setTypeAliasesPackage("com.wql.boot.wqlboot.model.domain");
-        //用于数据解密
-        bean.setAliasPackage("com.wql.boot.wqlboot.config.mybatis");
-        bean.setHandlePackage("com.wql.boot.wqlboot.config.mybatis");
         
         //分页插件设置
         PageHelper pageHelper = new PageHelper();
