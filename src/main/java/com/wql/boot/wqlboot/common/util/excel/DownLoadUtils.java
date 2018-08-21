@@ -1,4 +1,4 @@
-package com.wql.boot.wqlboot.common.util.csv;
+package com.wql.boot.wqlboot.common.util.excel;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
