@@ -17,12 +17,15 @@ import com.alibaba.fastjson.support.spring.FastJsonJsonView;
 import com.wql.boot.wqlboot.common.constant.BusinessEnum;
 import com.wql.boot.wqlboot.common.constant.BusinessException;
 
+
+
+
 /**
  * 异常处理机制
  * 
  * @author wangqiulin
  * @date 2018年5月12日
- */
+ */ 
 @ControllerAdvice
 public class ErrorExceptionHandler {
 	
@@ -32,11 +35,14 @@ public class ErrorExceptionHandler {
 	private static final String MSG = "msg";
 	
 
-	/** 自定义业务异常处理  */
+	/**
+	 * 自定义业务异常处理
+	 * @param busExp
+	 * @return
+	 */
 	@ExceptionHandler({ BusinessException.class })
 	@ResponseStatus(HttpStatus.OK)
 	public ModelAndView processException(BusinessException busExp) {
-		 logger.error("【业务异常】：", busExp);
 		 ModelAndView mv = new ModelAndView();
          //使用FastJson提供的FastJsonJsonView视图返回，不需要捕获异常	
          FastJsonJsonView view = new FastJsonJsonView();
@@ -48,11 +54,13 @@ public class ErrorExceptionHandler {
          return mv;
 	}
 	
-	/** 参数异常处理  */
+	/**
+	 * 参数异常处理
+	 * @return
+	 */
 	@ExceptionHandler({ ValidationException.class, IllegalArgumentException.class })
 	@ResponseStatus(HttpStatus.OK)
 	public ModelAndView processException() {
-		 logger.error("【参数异常】");
 		 ModelAndView mv = new ModelAndView();
          FastJsonJsonView view = new FastJsonJsonView();
          Map<String, Object> attributes = new HashMap<String, Object>();
@@ -63,7 +71,11 @@ public class ErrorExceptionHandler {
          return mv;
 	}
 	
-	/** 统一异常处理 */
+	/**
+	 * 统一异常处理
+	 * @param exp
+	 * @return
+	 */
 	@ExceptionHandler({ Exception.class })
 	@ResponseStatus(HttpStatus.OK)
 	public ModelAndView processException(Exception exp) {
