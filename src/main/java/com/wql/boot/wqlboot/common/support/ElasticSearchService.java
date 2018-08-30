@@ -32,7 +32,7 @@ import org.springframework.util.CollectionUtils;
  * @author wangqiulin
  *
  */
-@Component
+//@Component
 public class ElasticSearchService {
 	
 	private static final Logger logger = LoggerFactory.getLogger(ElasticSearchService.class);
