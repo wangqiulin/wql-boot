@@ -57,7 +57,7 @@ public class ElasticSearchService {
 			response = client.prepareIndex(indexName, type, docId).setSource(jsonStr, XContentType.JSON).get();
 		}
 		RestStatus status = response.status();
-		logger.info("es---插入耗时：{} ms", System.currentTimeMillis() - start);
+		logger.info("elasticsearch---插入耗时：{} ms", System.currentTimeMillis() - start);
 		return status.getStatus() == 201;
 	}
 	
@@ -108,7 +108,7 @@ public class ElasticSearchService {
 		GetResponse response = client.prepareGet(indexName, type, id)
 				.setOperationThreaded(false).execute().actionGet();  
 		String result = response.isExists() ? response.getSourceAsString() : null;
-		logger.info("es---查询耗时：{} ms", System.currentTimeMillis() - start);
+		logger.info("elasticsearch---查询耗时：{} ms", System.currentTimeMillis() - start);
 		return result;
 	}
 	

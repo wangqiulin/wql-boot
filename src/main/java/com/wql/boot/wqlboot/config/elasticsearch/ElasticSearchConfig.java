@@ -1,4 +1,4 @@
-package com.wql.boot.wqlboot.config.es;
+package com.wql.boot.wqlboot.config.elasticsearch;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -14,7 +14,6 @@ import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Configuration;
 
 //@Configuration
 public class ElasticSearchConfig implements FactoryBean<TransportClient>, InitializingBean, DisposableBean {

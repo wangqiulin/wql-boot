@@ -44,19 +44,19 @@ public class RestTemplateConfig {
 	public static final String HTTPS = "https";
 	public static final String ACCEPT_CHARSET = "Accept-Charset";
 	
-	@Value("${wql-boot.http.connect-timeout}")
+	@Value("${wql-boot.http.connect-timeout:3000}")
 	private Integer connectTimeout;
 	
-	@Value("${wql-boot.http.socket-timeout}")
+	@Value("${wql-boot.http.socket-timeout:24000}")
 	private Integer socketTimeout;
 	
-	@Value("${wql-boot.http.max-conn-total-int}")
+	@Value("${wql-boot.http.max-conn-total-int:10}")
 	private Integer maxConnTotalInt;
 	
-	@Value("${wql-boot.http.max-conn-per-route-int}")
+	@Value("${wql-boot.http.max-conn-per-route-int:40}")
 	private Integer maxConnPerRouteInt;
 	
-	@Value("${wql-boot.http.connection-request-timeout-int}")
+	@Value("${wql-boot.http.connection-request-timeout-int:3000}")
 	private Integer connectionRequestTimeoutInt;
 	
 	

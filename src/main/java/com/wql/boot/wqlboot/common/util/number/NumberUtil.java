@@ -1,5 +1,6 @@
 package com.wql.boot.wqlboot.common.util.number;
 
+import java.math.BigDecimal;
 import java.text.DecimalFormat;
 
 /**
@@ -33,6 +34,39 @@ public class NumberUtil extends org.apache.commons.lang3.math.NumberUtils {
         }
         DecimalFormat decimalFormat = new DecimalFormat(pattern);
         return decimalFormat.format(number);
+    }
+
+
+    /**
+     * bg1 与 bg2 的大小比较
+     *    返回1： bg1 > bg2
+     *    返回0： bg1 = bg2
+     *    返回-1： bg1 < bg2
+     *
+     * @param bg1
+     * @param bg2
+     * @return
+     */
+    public int compare(BigDecimal bg1, BigDecimal bg2){
+        return bg1.compareTo(bg2);
+    }
+
+    /**
+     * 是否等于0
+     * @param bg
+     * @return
+     */
+    public boolean equalZero(BigDecimal bg){
+        return BigDecimal.ZERO.compareTo(bg) == 0;
+    }
+
+    /**
+     * 是否大于等于0
+     * @param bg
+     * @return
+     */
+    public boolean greatEqualZero(BigDecimal bg){
+        return BigDecimal.ZERO.compareTo(bg) <= 0;
     }
 	
 	
