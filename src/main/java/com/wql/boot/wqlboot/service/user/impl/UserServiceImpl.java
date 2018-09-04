@@ -12,12 +12,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
 import com.wql.boot.wqlboot.common.constant.BusinessEnum;
 import com.wql.boot.wqlboot.common.constant.BusinessException;
 import com.wql.boot.wqlboot.common.constant.DataResponse;
-import com.wql.boot.wqlboot.common.support.ElasticSearchService;
 import com.wql.boot.wqlboot.common.support.RedisService;
 import com.wql.boot.wqlboot.common.util.bean.BeanUtils;
 import com.wql.boot.wqlboot.common.util.pwd.PwdEncoderUtil;
@@ -168,6 +165,6 @@ public class UserServiceImpl implements UserService {
 	    //导出
 	    ExcelExportUtil.exportToFile(filePath, resultList);
 	}
-	
-	
+
+
 }
