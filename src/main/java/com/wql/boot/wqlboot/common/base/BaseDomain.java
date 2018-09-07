@@ -1,15 +1,13 @@
 package com.wql.boot.wqlboot.common.base;
 
-import java.util.Date;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-
-import org.springframework.format.annotation.DateTimeFormat;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
+import java.util.Date;
 
 public class BaseDomain {
 	

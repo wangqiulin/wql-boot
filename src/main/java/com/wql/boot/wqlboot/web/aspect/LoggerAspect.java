@@ -1,17 +1,6 @@
 package com.wql.boot.wqlboot.web.aspect;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.InetAddress;
-import java.net.NetworkInterface;
-import java.util.stream.Stream;
-
-import javax.annotation.Resource;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-
+import com.alibaba.fastjson.JSON;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
@@ -23,7 +12,16 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.BindingResult;
 
-import com.alibaba.fastjson.JSON;
+import javax.annotation.Resource;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.InetAddress;
+import java.net.NetworkInterface;
+import java.util.stream.Stream;
 
 @Aspect
 @Component
@@ -41,7 +39,7 @@ public class LoggerAspect {
 
 	@Resource
 	private HttpServletRequest request;
-	
+
 	@Pointcut("@annotation(org.springframework.web.bind.annotation.RequestMapping) || "
 			+ "@annotation(org.springframework.web.bind.annotation.GetMapping) || "
 			+ "@annotation(org.springframework.web.bind.annotation.PostMapping)")
