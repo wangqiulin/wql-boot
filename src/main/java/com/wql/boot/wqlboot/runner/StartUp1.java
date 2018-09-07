@@ -31,6 +31,7 @@ public class StartUp1 implements CommandLineRunner {
     private static final Logger logger = LoggerFactory.getLogger(StartUp1.class);
     
     @Autowired
+	@Qualifier("userMapper")
     private SqlSessionDaoSupport sqlSessionDaoSupport;
     
     @Autowired
