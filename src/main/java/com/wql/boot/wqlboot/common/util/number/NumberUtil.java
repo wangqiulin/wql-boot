@@ -2,6 +2,8 @@ package com.wql.boot.wqlboot.common.util.number;
 
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.text.ParseException;
 
 /**
  * 数据格式化
@@ -34,6 +36,23 @@ public class NumberUtil extends org.apache.commons.lang3.math.NumberUtils {
         }
         DecimalFormat decimalFormat = new DecimalFormat(pattern);
         return decimalFormat.format(number);
+    }
+
+
+    /**
+     * 去掉逗号：   比如1,000 ---> 1000
+     * @param str
+     * @return
+     * @throws ParseException
+     */
+    public static String trim(String str) throws ParseException {
+        DecimalFormatSymbols dfs = new DecimalFormatSymbols();
+        dfs.setDecimalSeparator('.');
+        dfs.setGroupingSeparator(',');
+        dfs.setMonetaryDecimalSeparator('.');
+        DecimalFormat df = new DecimalFormat("###,###.##", dfs);
+        Number num = df.parse(str);
+        return num.toString();
     }
 
 
