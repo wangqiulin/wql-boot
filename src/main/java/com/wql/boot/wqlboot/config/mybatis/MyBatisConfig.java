@@ -1,9 +1,6 @@
 package com.wql.boot.wqlboot.config.mybatis;
 
-import java.util.Properties;
-
-import javax.sql.DataSource;
-
+import com.github.pagehelper.PageHelper;
 import org.apache.ibatis.plugin.Interceptor;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
@@ -16,7 +13,8 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.annotation.TransactionManagementConfigurer;
 
-import com.github.pagehelper.PageHelper;
+import javax.sql.DataSource;
+import java.util.Properties;
 
 /**
  *
@@ -32,8 +30,7 @@ public class MyBatisConfig implements TransactionManagementConfigurer {
 	private DataSource dataSource;
 
 	@Bean(name = "sqlSessionFactory")
-    public SqlSessionFactory sqlSessionFactoryBean() {
-		
+    public SqlSessionFactory sqlSessionFactoryBean() throws Exception {
 		SqlSessionFactoryBean bean = new SqlSessionFactoryBean();
         bean.setDataSource(dataSource);
         bean.setTypeAliasesPackage("com.wql.boot.wqlboot.model.domain");
@@ -41,7 +38,7 @@ public class MyBatisConfig implements TransactionManagementConfigurer {
         //分页插件设置
         PageHelper pageHelper = new PageHelper();
         Properties properties = new Properties();
-        properties.setProperty("reasonable", "true");
+        properties.setProperty("reasonable", "false"); //分页参数合理化
         properties.setProperty("supportMethodsArguments", "true");
         properties.setProperty("returnPageInfo", "check");
         properties.setProperty("params", "count=countSql");
@@ -50,14 +47,10 @@ public class MyBatisConfig implements TransactionManagementConfigurer {
         //添加分页插件
         bean.setPlugins(new Interceptor[]{pageHelper});
 
-       // ResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
-        try {
-            //基于xml配置写法
-            //bean.setMapperLocations(resolver.getResources("classpath:mappers/*.xml"));
-            return bean.getObject();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+        // ResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
+        //基于xml配置写法
+        //bean.setMapperLocations(resolver.getResources("classpath:mappers/*.xml"));
+        return bean.getObject();
     }
 
 	//事务
