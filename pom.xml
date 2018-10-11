@@ -26,18 +26,24 @@
 	        <groupId>org.springframework.boot</groupId>
 	        <artifactId>spring-boot-starter-web</artifactId>
 	        <exclusions>
-	        	<!-- 【用jetty需要排除】【将应用打成war包】，需要将内置tomcat排除掉 
+	        	<!-- 【用jetty需要排除】【将应用打成war包】，需要将内置tomcat排除掉 -->
 	        	<exclusion>
 	        		<groupId>org.springframework.boot</groupId>
 					<artifactId>spring-boot-starter-tomcat</artifactId>
-	        	</exclusion> -->
+	        	</exclusion>
 	        </exclusions>
 		</dependency>
-		
+
+		<!-- 添加 Undertow依赖 -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-jetty</artifactId>
+			<artifactId>spring-boot-starter-undertow</artifactId>
 		</dependency>
+
+		<!--<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-jetty</artifactId>
+		</dependency>-->
 	
 	    <!-- 核心模块，包括自动配置支持、日志和YAML -->
 		<dependency>
@@ -83,7 +89,7 @@
 			<artifactId>spring-boot-starter-freemarker</artifactId>
 		</dependency>
 	    
-	    <!-- springboot支持jsp -->
+	    <!-- springboot支持jsp
 		<dependency>
 			<groupId>org.apache.tomcat.embed</groupId>
 			<artifactId>tomcat-embed-jasper</artifactId>
@@ -92,7 +98,7 @@
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>jstl</artifactId>
-		</dependency>
+		</dependency> -->
 	    
 	    <!-- String字符串处理 -->
 		<dependency>
