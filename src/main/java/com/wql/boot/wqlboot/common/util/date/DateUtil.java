@@ -1,16 +1,11 @@
 package com.wql.boot.wqlboot.common.util.date;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
 public class DateUtil {
-
-    private static final Logger logger = LoggerFactory.getLogger(DateUtil.class);
 
 	/**
      * 获取第二天凌晨0点毫秒数

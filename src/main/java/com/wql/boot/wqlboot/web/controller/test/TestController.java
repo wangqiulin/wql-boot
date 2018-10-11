@@ -1,7 +1,5 @@
 package com.wql.boot.wqlboot.web.controller.test;
 
-import io.swagger.annotations.Api;
-
 import java.util.concurrent.TimeUnit;
 
 import org.redisson.api.RLock;
@@ -13,7 +11,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.wql.boot.wqlboot.common.property.ParamProperty;
+import com.wql.boot.wqlboot.common.support.lock.RedissonLockUtil;
 import com.wql.boot.wqlboot.service.user.UserService;
+
+import io.swagger.annotations.Api;
 
 /**
  *
@@ -39,7 +40,7 @@ public class TestController {
 	public String redissonClient() {
 		RLock lock = redissonClient.getLock("test");
 		try {
-			boolean locked = lock.tryLock(5000, 5000, TimeUnit.MILLISECONDS);
+			boolean locked = lock.tryLock(2000, 5000, TimeUnit.MILLISECONDS);
             if(locked) {
             	logger.info("成功获取到锁");
             } 
@@ -51,6 +52,23 @@ public class TestController {
         }
         return "exception";
 	}
+	
+	@GetMapping("/redisson2")
+	public String redissonClient2() {
+		try {
+			boolean locked = RedissonLockUtil.tryLock("test2", TimeUnit.MILLISECONDS, 2000, 500000);
+			if(locked) {
+	        	logger.info("成功获取到锁");
+	        } 
+	        return locked+"";
+		} catch (Exception e) {
+        	logger.error("设置分布式锁异常：", e);
+        } finally {
+        	RedissonLockUtil.unlock("test2");
+        }
+        return "exception";
+	}
+	
 	
 	@GetMapping("/xxlConf")
 	public String systemParam() {

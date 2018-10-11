@@ -1,4 +1,4 @@
-package com.wql.boot.wqlboot.common.support;
+package com.wql.boot.wqlboot.common.support.redis;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

@@ -1,6 +1,13 @@
 package com.wql.boot.wqlboot.common.util.file;
 
-import java.io.*;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 
 /**
  * @auther wangqiulin
@@ -106,7 +113,7 @@ public class FileUtils {
     }
 
 
-    private void build() throws IOException {
+    /*private void build() throws IOException {
         FileInputStream fis = new FileInputStream("");
         //字节输入流转字符输入流，带编码
         InputStreamReader reader = new InputStreamReader(fis, "utf-8");
@@ -143,7 +150,7 @@ public class FileUtils {
         bw.newLine();  //跨平台换行
         bw.flush();
         bw.close();
-    }
+    }*/
 
 
 }

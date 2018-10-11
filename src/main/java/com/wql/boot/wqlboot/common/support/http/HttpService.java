@@ -1,4 +1,4 @@
-package com.wql.boot.wqlboot.common.support;
+package com.wql.boot.wqlboot.common.support.http;
 
 import java.nio.charset.Charset;
 import java.util.Arrays;
