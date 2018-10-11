@@ -17,9 +17,6 @@ import com.alibaba.fastjson.support.spring.FastJsonJsonView;
 import com.wql.boot.wqlboot.common.constant.BusinessEnum;
 import com.wql.boot.wqlboot.common.constant.BusinessException;
 
-
-
-
 /**
  * 异常处理机制
  * 
@@ -33,12 +30,9 @@ public class ErrorExceptionHandler {
 	
 	private static final String CODE = "code";
 	private static final String MSG = "msg";
-	
 
 	/**
 	 * 自定义业务异常处理
-	 * @param busExp
-	 * @return
 	 */
 	@ExceptionHandler({ BusinessException.class })
 	@ResponseStatus(HttpStatus.OK)
@@ -56,7 +50,6 @@ public class ErrorExceptionHandler {
 	
 	/**
 	 * 参数异常处理
-	 * @return
 	 */
 	@ExceptionHandler({ ValidationException.class, IllegalArgumentException.class })
 	@ResponseStatus(HttpStatus.OK)
@@ -73,8 +66,6 @@ public class ErrorExceptionHandler {
 	
 	/**
 	 * 统一异常处理
-	 * @param exp
-	 * @return
 	 */
 	@ExceptionHandler({ Exception.class })
 	@ResponseStatus(HttpStatus.OK)
