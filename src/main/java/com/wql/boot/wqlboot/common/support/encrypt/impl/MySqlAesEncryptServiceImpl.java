@@ -1,4 +1,4 @@
-package com.wql.boot.wqlboot.common.dbEncrypt;
+package com.wql.boot.wqlboot.common.support.encrypt.impl;
 
 import javax.annotation.PostConstruct;
 import javax.crypto.Cipher;
@@ -10,11 +10,12 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
 import org.springframework.stereotype.Component;
 
+import com.wql.boot.wqlboot.common.support.encrypt.DatabaseEncryptService;
+import com.wql.boot.wqlboot.common.support.encrypt.MySqlAesUtil;
+
 /**
- * MySqlAesUtil的实现,默认数据库加密实现
- * 
+ * MySqlAesUtil的实现, 默认数据库加密实现
  * @author wangqiulin
- *
  */
 @Component
 @ConditionalOnExpression("'${database.encrypt.type:MySqlAes}'.equalsIgnoreCase('MySqlAes')")
@@ -31,18 +32,17 @@ public class MySqlAesEncryptServiceImpl implements DatabaseEncryptService {
 
     @PostConstruct
     public void initCipher(){
-        logger.info("开始初始化MySqlAesUtil加密解密器");
-        if(StringUtils.isEmpty(databaseEncryptKey)){
-            logger.warn("数据库加密使用默认key请通过database.encrypt.key设置");
-            databaseEncryptKey = "defaultKey";
-        }
+    	if(StringUtils.isEmpty(databaseEncryptKey)){
+    		return ;
+    	}
+        logger.info("【MySqlAesEncryptServiceImpl---初始化加密解密器，开始】");
         if(databaseEncryptKey.length() > 16){
             logger.warn("mysqlAes密钥设置过长,系统默认截取前16位");
             databaseEncryptKey = databaseEncryptKey.substring(0,16);
         }
         encCipher = MySqlAesUtil.getEncryptCipher(databaseEncryptKey);
         decCipher = MySqlAesUtil.getDecryptCipher(databaseEncryptKey);
-        logger.info("初始化MySqlAesUtil加密解密器完成");
+        logger.info("【MySqlAesEncryptServiceImpl---初始化加密解密器，完成】");
     }
 
     @Override

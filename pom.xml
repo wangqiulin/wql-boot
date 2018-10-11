@@ -40,11 +40,6 @@
 			<artifactId>spring-boot-starter-undertow</artifactId>
 		</dependency>
 
-		<!--<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-jetty</artifactId>
-		</dependency>-->
-	
 	    <!-- 核心模块，包括自动配置支持、日志和YAML -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -55,7 +50,7 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
-			<!--<scope>test</scope>-->
+			<scope>test</scope>
 		</dependency>
 		
 		<!-- 集成mybatis -->
@@ -139,7 +134,7 @@
 		<dependency>
 			<groupId>org.redisson</groupId>
 			<artifactId>redisson</artifactId>
-			<version>3.6.4</version>
+			<version>3.8.2</version>
 		</dependency>
 		<!-- spring-session -->
 		<dependency>

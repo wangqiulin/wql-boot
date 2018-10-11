@@ -12,41 +12,50 @@ import java.util.Date;
 public class BaseDomain {
 	
 	@Id
-    @Column(name = "data_id") 
+    @Column(name = "id") 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer dataId;
+    private Integer id;
 	
 	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss", timezone="GMT+8")
 	@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
-	private Date created;
+	private Date createDate;
 	
 	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss", timezone="GMT+8")
 	@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
-	private Date updated;
+	private Date updateDate;
 
-	public Integer getDataId() {
-		return dataId;
+	private Integer dataFlag;
+
+	public Integer getId() {
+		return id;
 	}
 
-	public void setDataId(Integer dataId) {
-		this.dataId = dataId;
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
-	public Date getCreated() {
-		return created;
+	public Date getCreateDate() {
+		return createDate;
 	}
 
-	public void setCreated(Date created) {
-		this.created = created;
+	public void setCreateDate(Date createDate) {
+		this.createDate = createDate;
 	}
 
-	public Date getUpdated() {
-		return updated;
+	public Date getUpdateDate() {
+		return updateDate;
 	}
 
-	public void setUpdated(Date updated) {
-		this.updated = updated;
+	public void setUpdateDate(Date updateDate) {
+		this.updateDate = updateDate;
 	}
 
+	public Integer getDataFlag() {
+		return dataFlag;
+	}
+
+	public void setDataFlag(Integer dataFlag) {
+		this.dataFlag = dataFlag;
+	}
 	
 }

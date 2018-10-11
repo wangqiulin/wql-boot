@@ -62,10 +62,10 @@ public class UserServiceImpl implements UserService {
 			throw new BusinessException(BusinessEnum.USER_EXIST);
 		}
 		//保存
-		record.setDataId(null);
+		record.setId(null);
 		record.setUserPwd(PwdEncoderUtil.encrypt(req.getPassword()));
-		record.setCreated(new Date());
-		record.setUpdated(record.getCreated());
+		record.setCreateDate(new Date());
+		record.setUpdateDate(record.getCreateDate());
 		int flag = userMapper.insertSelective(record);
 		if(flag != 1) {
 			throw new BusinessException(BusinessEnum.USER_REGISTER_FAIL);
@@ -128,7 +128,7 @@ public class UserServiceImpl implements UserService {
 		Assert.isTrue(req.getDataId() != null, "dataId不能为空");
 		
 		User record = new User();
-		record.setDataId(req.getDataId());
+		record.setId(req.getDataId());
 		record.setUserName(req.getUserName());
 		if(StringUtils.isNotBlank(req.getUserPwd())) {
 			record.setUserPwd(PwdEncoderUtil.encrypt(req.getUserPwd()));

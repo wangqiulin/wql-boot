@@ -1,4 +1,4 @@
-package com.wql.boot.wqlboot.common.dbEncrypt;
+package com.wql.boot.wqlboot.common.support.encrypt;
 
 import java.io.UnsupportedEncodingException;
 import java.security.Key;

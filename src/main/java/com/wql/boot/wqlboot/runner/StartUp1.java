@@ -34,7 +34,7 @@ public class StartUp1 implements CommandLineRunner {
     private SqlSessionTemplate sqlSessionTemplate;
     
     public void run(String... args) throws Exception {
-        logger.info(this.getClass().getName() + "启动加载数据" + args);
+        logger.info("【启动加载数据】");
         //启动时获取SqlSession
         
         //方式1

@@ -41,7 +41,7 @@ public class DemoJobHandler extends IJobHandler {
 			List<String> delList = new ArrayList<>();
 			List<User> list = userMapper.selectAll();
 			for (User user : list) {
-				delList.add(user.getDataId().toString());
+				delList.add(user.getId().toString());
 			}
 			redisTemplate.delete(delList);
 		} catch (Exception e) {
