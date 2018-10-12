@@ -48,17 +48,20 @@
         </filter>
     </appender>
 
+
     <!-- root将级别为“DEBUG”及大于“DEBUG”的日志信息交给已经配置好的名为“Console”的appender处理，“Console”appender将信息打印到Console -->
     <!-- sql打印 additivity=true 会向上传递,root中的appender可以享有此logger -->
     <Logger name="druid.sql.Statement" level="${log.sql.level}" additivity="true">
         <!-- 标识这个appender将会添加到这个logger -->
         <!--<appender-ref ref="file" />-->
     </Logger>
+    
     <root level="${log.root.level}">
         <!-- 标识这个appender将会添加到这个logger -->
         <appender-ref ref="stdout"/>
         <appender-ref ref="file"/>
     </root>
+    
 </configuration>  
 
 

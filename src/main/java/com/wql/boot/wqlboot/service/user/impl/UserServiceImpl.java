@@ -15,6 +15,7 @@ import org.springframework.util.Assert;
 import com.wql.boot.wqlboot.common.constant.BusinessEnum;
 import com.wql.boot.wqlboot.common.constant.BusinessException;
 import com.wql.boot.wqlboot.common.constant.DataResponse;
+import com.wql.boot.wqlboot.common.support.cat.CatTransaction;
 import com.wql.boot.wqlboot.common.support.redis.RedisService;
 import com.wql.boot.wqlboot.common.util.bean.BeanUtils;
 import com.wql.boot.wqlboot.common.util.pwd.PwdEncoderUtil;
@@ -34,6 +35,7 @@ import com.xuxueli.poi.excel.ExcelExportUtil;
    @CacheEvict(cacheNames="user", key = "#name")
  */
 @Service
+@CatTransaction
 public class UserServiceImpl implements UserService {
 	
 	//private static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
