@@ -4,6 +4,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.redisson.Redisson;
 import org.redisson.api.RedissonClient;
 import org.redisson.config.Config;
+import org.redisson.config.SentinelServersConfig;
 import org.redisson.config.SingleServerConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
@@ -24,26 +25,6 @@ public class RedissonAutoConfig {
 	private RedissonProperties redssionProperties;
 
 	/**
-	 * 哨兵模式自动装配
-	 */
-	/*@Bean
-	@ConditionalOnProperty(name = "redisson.master-name")
-	RedissonClient redissonSentinel() {
-		Config config = new Config();
-		SentinelServersConfig serverConfig = config.useSentinelServers()
-				.addSentinelAddress(redssionProperties.getSentinelAddresses())
-				.setMasterName(redssionProperties.getMasterName())
-				.setTimeout(redssionProperties.getTimeout())
-				.setMasterConnectionPoolSize(redssionProperties.getMasterConnectionPoolSize())
-				.setSlaveConnectionPoolSize(redssionProperties.getSlaveConnectionPoolSize());
-		//在redis进行连接的时候如果不对密码进行空判断，会出现AUTH校验失败的情况。	
-		if (StringUtils.isNotBlank(redssionProperties.getPassword())) {
-			serverConfig.setPassword(redssionProperties.getPassword());
-		}
-		return Redisson.create(config);
-	}*/
-
-	/**
 	 * 单机模式自动装配
 	 */
 	@Bean
@@ -61,6 +42,28 @@ public class RedissonAutoConfig {
 		}
 		return Redisson.create(config);
 	}
+	
+	
+	/**
+	 * 哨兵模式自动装配
+	 */
+	@Bean
+	@ConditionalOnProperty(name = "redisson.master-name")
+	RedissonClient redissonSentinel() {
+		Config config = new Config();
+		SentinelServersConfig serverConfig = config.useSentinelServers()
+				.addSentinelAddress(redssionProperties.getSentinelAddresses())
+				.setMasterName(redssionProperties.getMasterName())
+				.setTimeout(redssionProperties.getTimeout())
+				.setMasterConnectionPoolSize(redssionProperties.getMasterConnectionPoolSize())
+				.setSlaveConnectionPoolSize(redssionProperties.getSlaveConnectionPoolSize());
+		//在redis进行连接的时候如果不对密码进行空判断，会出现AUTH校验失败的情况。	
+		if (StringUtils.isNotBlank(redssionProperties.getPassword())) {
+			serverConfig.setPassword(redssionProperties.getPassword());
+		}
+		return Redisson.create(config);
+	}
+	
 
 	/**
 	 * 装配locker类，并将实例注入到RedissLockUtil中
