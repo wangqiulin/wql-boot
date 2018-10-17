@@ -1,6 +1,5 @@
 package com.wql.boot.wqlboot.config.redisson;
 
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
@@ -12,7 +11,6 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 @ConfigurationProperties(prefix = "redisson")
-@ConditionalOnProperty("redisson.password")
 public class RedissonProperties {
 
     private int timeout = 3000;
