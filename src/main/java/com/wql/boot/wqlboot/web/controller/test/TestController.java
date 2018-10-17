@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.wql.boot.wqlboot.common.property.ParamProperty;
 import com.wql.boot.wqlboot.common.support.lock.RedissonLockUtil;
+import com.wql.boot.wqlboot.config.rabbitmq.Send;
 import com.wql.boot.wqlboot.service.user.UserService;
 
 import io.swagger.annotations.Api;
@@ -35,6 +36,18 @@ public class TestController {
 	
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private Send send;
+	
+	
+	@GetMapping("/rabbit/send")
+	public void sendMsg() {
+        for (int i=1; i<=3; i++){
+        	send.sendMsg("生产消息 : "+i);
+        }
+	}
+	
 	
 	@GetMapping("/redisson")
 	public String redissonClient() {
