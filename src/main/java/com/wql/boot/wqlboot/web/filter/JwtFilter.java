@@ -15,6 +15,7 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
@@ -27,7 +28,15 @@ import com.wql.boot.wqlboot.config.jwt.JwtProperties;
 
 import io.jsonwebtoken.Claims;
 
+/**
+ * JWT登录认证拦截器
+ * 
+ * @author wangqiulin
+ *
+ */
 public class JwtFilter implements Filter {
+
+	private static final String OPTIONS = "OPTIONS";
 
 	@Autowired
 	private JwtProperties jwtProperty;
@@ -36,8 +45,12 @@ public class JwtFilter implements Filter {
 	private JwtPatternUrl jwtPatternUrl;
 
 	@Override
+	public void init(FilterConfig filterConfig) throws ServletException {
+		SpringBeanAutowiringSupport.processInjectionBasedOnServletContext(this, filterConfig.getServletContext());
+	}
+	
+	@Override
 	public void destroy() {
-
 	}
 
 	@Override
@@ -45,12 +58,11 @@ public class JwtFilter implements Filter {
 			throws IOException, ServletException {
 		HttpServletRequest httpRequest = (HttpServletRequest) request;
 		HttpServletResponse httpResponse = (HttpServletResponse) response;
-
-		if ("OPTIONS".equals(httpRequest.getMethod())) {
+		if (OPTIONS.equals(httpRequest.getMethod())) {
 			chain.doFilter(httpRequest, httpResponse);
 			return;
 		}
-
+		//访问地址
 		String url = httpRequest.getRequestURI().substring(httpRequest.getContextPath().length());
 		if (isInclude(url)) {
 			// 如果是属于排除的URL，比如登录，注册，验证码等URL，则直接通行
@@ -58,39 +70,32 @@ public class JwtFilter implements Filter {
 			return;
 		}
 		String auth = httpRequest.getHeader("Authorization");
-		if ((auth != null) && (auth.length() > 7)) {
+		if (StringUtils.isNoneBlank(auth) && auth.length() > 7) {
 			String HeadStr = auth.substring(0, 6).toLowerCase();
 			if (HeadStr.compareTo("bearer") == 0) {
-				auth = auth.substring(7, auth.length());
-				Claims claims = JwtHelper.parseJWT(auth, jwtProperty.getBase64Secret());
+				Claims claims = JwtHelper.parseJWT(auth.substring(7, auth.length()), jwtProperty.getBase64Secret());
 				if (claims != null) {
+					//TODO 判断该用户是否合法
 					chain.doFilter(request, response);
 					return;
 				}
 			}
 		}
 		// 验证不通过
+		response.setCharacterEncoding("UTF-8");
+		response.setContentType("application/json;charset=utf-8");
+
+		ObjectMapper mapper = new ObjectMapper();
 		Map<String, String> resultMap = new HashMap<String, String>();
 		resultMap.put(BaseConstant.CODE, BusinessEnum.USER_NOT_LOGIN.getCode());
 		resultMap.put(BaseConstant.MSG, BusinessEnum.USER_NOT_LOGIN.getMsg());
-        ObjectMapper mapper = new ObjectMapper();
-        
-        response.setCharacterEncoding("UTF-8");
-        response.setContentType("application/json;charset=utf-8");
 		httpResponse.getWriter().write(mapper.writeValueAsString(resultMap));
 		return;
 	}
 
-	@Override
-	public void init(FilterConfig filterConfig) throws ServletException {
-		SpringBeanAutowiringSupport.processInjectionBasedOnServletContext(this, filterConfig.getServletContext());
-	}
 
 	/**
 	 * 是否需要过滤
-	 * 
-	 * @param url
-	 * @return
 	 */
 	private boolean isInclude(String url) {
 		for (String patternUrl : jwtPatternUrl.getUrlPatterns()) {
@@ -102,4 +107,5 @@ public class JwtFilter implements Filter {
 		}
 		return false;
 	}
+
 }

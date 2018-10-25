@@ -15,7 +15,6 @@ import com.wql.boot.wqlboot.common.constant.BusinessEnum;
 import com.wql.boot.wqlboot.common.constant.BusinessException;
 import com.wql.boot.wqlboot.common.constant.DataResponse;
 import com.wql.boot.wqlboot.common.support.cat.CatTransaction;
-import com.wql.boot.wqlboot.common.support.redis.RedisService;
 import com.wql.boot.wqlboot.common.util.bean.BeanUtils;
 import com.wql.boot.wqlboot.common.util.pwd.PwdEncoderUtil;
 import com.wql.boot.wqlboot.config.jwt.JwtHelper;
@@ -43,12 +42,6 @@ public class UserServiceImpl implements UserService {
 	private UserMapper userMapper;
 
 	@Autowired
-	private RedisService redisService;
-
-	// @Autowired
-	// private ElasticSearchService elasticSearchService;
-
-	@Autowired
 	private JwtProperties jwtProperties;
 
 	@Override
@@ -73,9 +66,6 @@ public class UserServiceImpl implements UserService {
 		if (flag != 1) {
 			throw new BusinessException(BusinessEnum.USER_REGISTER_FAIL);
 		}
-		// 将数据保存到索引库
-		// elasticSearchService.addSingle("wqlboot", "user", record.getDataId()+"",
-		// JSON.toJSONString(record));
 		return new DataResponse(BusinessEnum.SUCCESS);
 	}
 
@@ -95,14 +85,11 @@ public class UserServiceImpl implements UserService {
 			throw new BusinessException(BusinessEnum.USER_PWD_ERROR);
 		}
 		// 登录成功
-		String jwtToken = JwtHelper.createJWT(req.getUserName(), user.getId()+"", "role", jwtProperties.getClientId(),
+		String jwtToken = JwtHelper.createJWT(req.getUserName(), user.getId() + "", "role", jwtProperties.getClientId(),
 				jwtProperties.getName(), jwtProperties.getExpiresSecond() * 1000, jwtProperties.getBase64Secret());
-		String token = "bearer;" + jwtToken;
-		redisService.setWithExByS("token", token, 300);
-		return new DataResponse(BusinessEnum.SUCCESS, token);
+		return new DataResponse(BusinessEnum.SUCCESS, "bearer;" + jwtToken);
 	}
 
-	
 	@Override
 	public DataResponse queryUser(String userName) {
 		Assert.isTrue(StringUtils.isNotBlank(userName), "用户名不能为空");
@@ -113,10 +100,6 @@ public class UserServiceImpl implements UserService {
 		if (user == null) {
 			throw new BusinessException(BusinessEnum.USER_NOT_EXIST);
 		}
-
-		// String es_user = elasticSearchService.searchById("wqlboot", "user",
-		// user.getDataId()+"");
-		// user = JSONObject.parseObject(es_user, User.class);
 		return new DataResponse(BusinessEnum.SUCCESS, user);
 	}
 
@@ -144,8 +127,6 @@ public class UserServiceImpl implements UserService {
 	@Override
 	@Transactional(rollbackFor = RuntimeException.class)
 	public DataResponse deleteUser(Integer dataId) {
-		// elasticSearchService.deleteDoc("wqlboot", "user", dataId+"");
-
 		Assert.isTrue(dataId != null, "dataId不能为空");
 		int flag = userMapper.deleteByPrimaryKey(dataId);
 		return flag == 1 ? new DataResponse(BusinessEnum.SUCCESS) : new DataResponse(BusinessEnum.FAIL);

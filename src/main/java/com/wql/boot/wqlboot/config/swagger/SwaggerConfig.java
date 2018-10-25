@@ -42,7 +42,7 @@ public class SwaggerConfig {
 		//添加head参数start
         ParameterBuilder tokenPar = new ParameterBuilder();
         List<Parameter> pars = new ArrayList<Parameter>();
-        tokenPar.name("token").description("登录令牌").modelRef(new ModelRef("string")).parameterType("header").required(false).build();
+        tokenPar.name("Authorization").description("登录令牌").modelRef(new ModelRef("string")).parameterType("header").required(false).build();
         pars.add(tokenPar.build());
         //添加head参数end
         return new Docket(DocumentationType.SWAGGER_2)
@@ -61,7 +61,7 @@ public class SwaggerConfig {
                 .description("wql-boot")
                 .termsOfServiceUrl("http://localhost:8081/")
                 //.contact("wql")
-                .version("1.0")
+                .version("1.0.0")
                 .build();
     }
 	
