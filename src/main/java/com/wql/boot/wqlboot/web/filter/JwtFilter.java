@@ -19,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.wql.boot.wqlboot.common.constant.BaseConstant;
 import com.wql.boot.wqlboot.common.constant.BusinessEnum;
 import com.wql.boot.wqlboot.config.jwt.JwtHelper;
 import com.wql.boot.wqlboot.config.jwt.JwtPatternUrl;
@@ -28,9 +29,6 @@ import io.jsonwebtoken.Claims;
 
 public class JwtFilter implements Filter {
 
-	private static final String CODE = "code";
-	private static final String MSG = "msg";
-	
 	@Autowired
 	private JwtProperties jwtProperty;
 
@@ -73,8 +71,8 @@ public class JwtFilter implements Filter {
 		}
 		// 验证不通过
 		Map<String, String> resultMap = new HashMap<String, String>();
-		resultMap.put(CODE, BusinessEnum.USER_NOT_LOGIN.getCode());
-		resultMap.put(MSG, BusinessEnum.USER_NOT_LOGIN.getMsg());
+		resultMap.put(BaseConstant.CODE, BusinessEnum.USER_NOT_LOGIN.getCode());
+		resultMap.put(BaseConstant.MSG, BusinessEnum.USER_NOT_LOGIN.getMsg());
         ObjectMapper mapper = new ObjectMapper();
         
         response.setCharacterEncoding("UTF-8");

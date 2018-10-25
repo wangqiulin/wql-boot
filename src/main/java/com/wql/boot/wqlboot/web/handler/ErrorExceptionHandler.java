@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.alibaba.fastjson.support.spring.FastJsonJsonView;
+import com.wql.boot.wqlboot.common.constant.BaseConstant;
 import com.wql.boot.wqlboot.common.constant.BusinessEnum;
 import com.wql.boot.wqlboot.common.constant.BusinessException;
 
@@ -28,9 +29,6 @@ public class ErrorExceptionHandler {
 	
 	private static final Logger logger = LoggerFactory.getLogger(ErrorExceptionHandler.class);
 	
-	private static final String CODE = "code";
-	private static final String MSG = "msg";
-
 	/**
 	 * 自定义业务异常处理
 	 */
@@ -41,8 +39,8 @@ public class ErrorExceptionHandler {
          //使用FastJson提供的FastJsonJsonView视图返回，不需要捕获异常	
          FastJsonJsonView view = new FastJsonJsonView();
          Map<String, Object> attributes = new HashMap<String, Object>();
-         attributes.put(CODE, busExp.getCode());
-         attributes.put(MSG, busExp.getMsg());
+         attributes.put(BaseConstant.CODE, busExp.getCode());
+         attributes.put(BaseConstant.MSG, busExp.getMsg());
          view.setAttributesMap(attributes);
          mv.setView(view); 
          return mv;
@@ -57,8 +55,8 @@ public class ErrorExceptionHandler {
 		 ModelAndView mv = new ModelAndView();
          FastJsonJsonView view = new FastJsonJsonView();
          Map<String, Object> attributes = new HashMap<String, Object>();
-         attributes.put(CODE, BusinessEnum.PARAM_FAIL.getCode());
-         attributes.put(MSG, BusinessEnum.PARAM_FAIL.getMsg());
+         attributes.put(BaseConstant.CODE, BusinessEnum.PARAM_FAIL.getCode());
+         attributes.put(BaseConstant.MSG, BusinessEnum.PARAM_FAIL.getMsg());
          view.setAttributesMap(attributes);
          mv.setView(view); 
          return mv;
@@ -74,8 +72,8 @@ public class ErrorExceptionHandler {
 		ModelAndView mv = new ModelAndView();
         FastJsonJsonView view = new FastJsonJsonView();
         Map<String, Object> attributes = new HashMap<String, Object>();
-        attributes.put(CODE, BusinessEnum.FAIL.getCode());
-        attributes.put(MSG, BusinessEnum.FAIL.getMsg());
+        attributes.put(BaseConstant.CODE, BusinessEnum.FAIL.getCode());
+        attributes.put(BaseConstant.MSG, BusinessEnum.FAIL.getMsg());
         view.setAttributesMap(attributes);
         mv.setView(view); 
         return mv;
