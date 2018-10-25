@@ -22,7 +22,7 @@ public enum BusinessEnum {
 	USER_NOT_EXIST("100001", "用户不存在"),
 	USER_REGISTER_FAIL("100002", "注册失败"),
 	USER_PWD_ERROR("100003", "密码错误"),
-	
+	USER_NOT_LOGIN("100004", "请登录"),
 	;
 	
 	private String code;
