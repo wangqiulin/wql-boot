@@ -1,12 +1,12 @@
 package com.wql.boot.wqlboot.config.jwt;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import com.google.common.collect.Lists;
 import com.wql.boot.wqlboot.web.filter.JwtFilter;
 
 /**
@@ -24,7 +24,7 @@ public class JwtConfig {
 		registrationBean.setFilter(new JwtFilter());
 		
 		// 添加需要拦截的url
-		List<String> urlPatterns = Lists.newArrayList();
+		List<String> urlPatterns = new ArrayList<String>();
 		urlPatterns.add("/*");
 		registrationBean.addUrlPatterns(urlPatterns.toArray(new String[urlPatterns.size()]));
 		return registrationBean;
