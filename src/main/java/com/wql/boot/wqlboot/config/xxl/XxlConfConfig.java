@@ -14,8 +14,8 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 public class XxlConfConfig {
+	
     private Logger logger = LoggerFactory.getLogger(XxlConfConfig.class);
-
 
     @Value("${xxl.conf.zkaddress}")
     private String zkaddress;
@@ -29,10 +29,8 @@ public class XxlConfConfig {
     @Value("${xxl.conf.mirrorfile}")
     private String mirrorfile;
 
-
     @Bean
     public XxlConfFactory xxlConfFactory() {
-
         XxlConfFactory xxlConf = new XxlConfFactory();
         xxlConf.setZkaddress(zkaddress);
         xxlConf.setZkdigest(zkdigest);

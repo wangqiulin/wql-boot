@@ -112,9 +112,9 @@ public class ElasticSearchService {
 	}
 	
 	/**
-	 * excel导入过滤查询
+	 * 复杂查询
 	 */
-	public Map<String, Object> searchByExcelContent(String indexName, String type, int from, int size,
+	public Map<String, Object> searchByContent(String indexName, String type, int from, int size,
 			Map<String, String> mustMap, Map<String, String[]> shouldMap, Map<String, Object> filterMap) {
 		//生成搜索条件
 		BoolQueryBuilder boolQueryBuilder = QueryBuilders.boolQuery();
