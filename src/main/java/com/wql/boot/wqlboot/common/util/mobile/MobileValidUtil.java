@@ -11,7 +11,7 @@ import java.util.regex.Pattern;
  */
 public class MobileValidUtil {
 	
-	private static final String REGULAR_EXPRESSION = "(13[0-9]|15[0-9]|17[0-9]|18[0-9]|14[0-9])[0-9]{8}";
+	private static final String REGULAR_EXPRESSION = "(1[3-9])[0-9]{9}";
 	
 	/**
 	 * 检测手机号格式是否正确
