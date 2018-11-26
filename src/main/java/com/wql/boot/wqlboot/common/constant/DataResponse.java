@@ -21,6 +21,9 @@ public class DataResponse {
 	 * 返回数据
 	 */
 	private Object data;
+	
+	public DataResponse() {
+	}
 
 	public DataResponse(BusinessEnum busEnum) {
 		this.code = busEnum.getCode();
