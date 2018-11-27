@@ -1,12 +1,13 @@
 package com.wql.boot.wqlboot.config.xxl;
 
-import com.xxl.job.core.executor.XxlJobExecutor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+
+import com.xxl.job.core.executor.impl.XxlJobSpringExecutor;
 
 /**
  * 
@@ -41,9 +42,9 @@ public class XxlJobConfig {
     private int logRetentionDays;
 
     @Bean(initMethod = "start", destroyMethod = "destroy")
-    public XxlJobExecutor xxlJobExecutor() {
+    public XxlJobSpringExecutor xxlJobExecutor() {
         logger.info(">>>>>>>>>>> xxl-job config init.");
-        XxlJobExecutor xxlJobExecutor = new XxlJobExecutor();
+        XxlJobSpringExecutor xxlJobExecutor = new XxlJobSpringExecutor();
         xxlJobExecutor.setAdminAddresses(adminAddresses);
         xxlJobExecutor.setAppName(appName);
         xxlJobExecutor.setIp(ip);
