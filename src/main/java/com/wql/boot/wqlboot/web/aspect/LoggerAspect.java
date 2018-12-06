@@ -105,8 +105,7 @@ public class LoggerAspect {
      * @param path
      */
     private void printRequestLog(JoinPoint joinPoint, String ip, String mac, String submitMethod, String path) {
-        StringBuilder sb = new StringBuilder(
-                "\n-------------------------------------begin-------------------------------------");
+        StringBuilder sb = new StringBuilder( "\n-------------------------------------begin-------------------------------------");
         sb.append("\nrequest info is -------->\n");
         String method = joinPoint.getSignature().getName();
         // sb.append("ip : ").append(ip).append("\n");
