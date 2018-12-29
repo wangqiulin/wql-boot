@@ -1,10 +1,12 @@
 package com.wql.boot.wqlboot.config.mybatis;
 
-import com.github.pagehelper.PageHelper;
+import java.util.Properties;
+
+import javax.sql.DataSource;
+
 import org.apache.ibatis.plugin.Interceptor;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
-import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,8 +15,7 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.annotation.TransactionManagementConfigurer;
 
-import javax.sql.DataSource;
-import java.util.Properties;
+import com.github.pagehelper.PageHelper;
 
 /**
  *
@@ -23,7 +24,7 @@ import java.util.Properties;
 */
 @Configuration
 @EnableTransactionManagement
-@MapperScan(basePackages = "com.wql.boot.wqlboot.mapper")
+@tk.mybatis.spring.annotation.MapperScan(basePackages = "com.wql.boot.wqlboot.mapper")
 public class MyBatisConfig implements TransactionManagementConfigurer {
 
 	@Autowired
