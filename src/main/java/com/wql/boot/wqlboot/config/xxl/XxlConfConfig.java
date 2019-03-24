@@ -1,18 +1,16 @@
 //package com.wql.boot.wqlboot.config.xxl;
 //
-//import com.xxl.conf.core.spring.XxlConfFactory;
 //import org.slf4j.Logger;
 //import org.slf4j.LoggerFactory;
 //import org.springframework.beans.factory.annotation.Value;
 //import org.springframework.context.annotation.Bean;
-//import org.springframework.context.annotation.Configuration;
 //
 ///**
 // * 
 // * @author wangqiulin
 // *
 // */
-//@Configuration
+////@Configuration
 //public class XxlConfConfig {
 //	
 //    private Logger logger = LoggerFactory.getLogger(XxlConfConfig.class);

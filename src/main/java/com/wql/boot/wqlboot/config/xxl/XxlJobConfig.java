@@ -14,7 +14,7 @@ import com.xxl.job.core.executor.impl.XxlJobSpringExecutor;
  * @author wangqiulin
  * @date 2018年5月12日
  */
-@Configuration
+//@Configuration
 @ComponentScan(basePackages = "com.wql.boot.wqlboot.job")
 public class XxlJobConfig {
 	

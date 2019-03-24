@@ -26,7 +26,7 @@ import com.rabbitmq.client.Channel;
  * @author wangqiulin
  * @date 2018年10月17日
  */
-@Configuration
+//@Configuration
 public class AmqpConfig {
 
 	@Value("${spring.rabbitmq.host}")
