@@ -77,7 +77,6 @@ public class LoggerAspect {
 			+ "@annotation(org.springframework.web.bind.annotation.GetMapping) || "
 			+ "@annotation(org.springframework.web.bind.annotation.PostMapping)")
 	public void log() {
-		
 	}
 
 	@Before("log()")
