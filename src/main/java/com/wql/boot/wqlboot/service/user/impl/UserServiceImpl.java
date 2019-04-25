@@ -7,7 +7,6 @@ import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
@@ -103,7 +102,7 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
 	}
 
 	@Override
-	@Cacheable(cacheNames="CacheData:user")
+	//@Cacheable(cacheNames="CacheData:user")
 	public DataResponse queryAll() {
 		List<User> list = userMapper.selectAll();
 		return new DataResponse(BusinessEnum.SUCCESS, list);
