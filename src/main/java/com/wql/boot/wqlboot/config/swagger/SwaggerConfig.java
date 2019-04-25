@@ -59,9 +59,9 @@ public class SwaggerConfig {
         return new ApiInfoBuilder()
                 .title("WQL-BOOT API接口")
                 .description("wql-boot")
-                .termsOfServiceUrl("http://localhost:8081/")
+                .termsOfServiceUrl("http://localhost:8888/wql-boot")
                 //.contact("wql")
-                .version("1.0.0")
+                .version("0.0.1-SNAPSHOT")
                 .build();
     }
 	
