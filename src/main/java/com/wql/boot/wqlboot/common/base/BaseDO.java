@@ -9,7 +9,7 @@ import javax.persistence.Id;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-public class BaseDomain {
+public class BaseDO {
 	
 	@Id
     @Column(name = "id") 

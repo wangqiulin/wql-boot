@@ -2,10 +2,10 @@ package com.wql.boot.wqlboot.model.domain.user;
 
 import javax.persistence.Table;
 
-import com.wql.boot.wqlboot.common.base.BaseDomain;
+import com.wql.boot.wqlboot.common.base.BaseDO;
 
 @Table(name="t_user")
-public class User extends BaseDomain {
+public class User extends BaseDO {
 
 	private String userName;
 	

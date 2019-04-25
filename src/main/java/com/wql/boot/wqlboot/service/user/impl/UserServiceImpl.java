@@ -12,10 +12,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
+import com.wql.boot.wqlboot.common.base.BaseService;
 import com.wql.boot.wqlboot.common.constant.BusinessEnum;
 import com.wql.boot.wqlboot.common.constant.BusinessException;
 import com.wql.boot.wqlboot.common.constant.DataResponse;
-import com.wql.boot.wqlboot.common.support.cat.CatTransaction;
 import com.wql.boot.wqlboot.common.util.bean.BeanUtils;
 import com.wql.boot.wqlboot.common.util.pwd.PwdEncoderUtil;
 import com.wql.boot.wqlboot.config.jwt.JwtHelper;
@@ -30,14 +30,12 @@ import com.wql.boot.wqlboot.service.user.UserService;
 import com.xuxueli.poi.excel.ExcelExportUtil;
 
 /**
- * 
  * @Cacheable(cacheNames="user", key = "#name")
  * @CachePut(cacheNames="user", key = "#name")
  * @CacheEvict(cacheNames="user", key = "#name")
  */
 @Service
-@CatTransaction
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl extends BaseService<User> implements UserService {
 
 	@Autowired
 	private UserMapper userMapper;
