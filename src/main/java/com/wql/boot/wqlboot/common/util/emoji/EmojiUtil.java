@@ -11,12 +11,6 @@ import com.xxl.emoji.encode.EmojiEncode;
  */
 public class EmojiUtil {
 
-    public static void main(String[] args) {
-        String encode = encode("一朵美丽的茉莉🌹", EmojiEncode.ALIASES);
-        System.out.println(encode);
-        System.out.println(decode(encode));
-    }
-    
     /**
      * emoji表情编码
      * @param input

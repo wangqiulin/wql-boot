@@ -17,8 +17,6 @@ import com.wql.boot.wqlboot.common.constant.BusinessException;
 import com.wql.boot.wqlboot.common.constant.DataResponse;
 import com.wql.boot.wqlboot.common.util.bean.BeanUtils;
 import com.wql.boot.wqlboot.common.util.pwd.PwdEncoderUtil;
-import com.wql.boot.wqlboot.config.jwt.JwtHelper;
-import com.wql.boot.wqlboot.config.jwt.JwtProperties;
 import com.wql.boot.wqlboot.mapper.user.UserMapper;
 import com.wql.boot.wqlboot.model.domain.user.User;
 import com.wql.boot.wqlboot.model.req.user.UserLoginReq;
@@ -38,9 +36,6 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
 
 	@Autowired
 	private UserMapper userMapper;
-
-	@Autowired
-	private JwtProperties jwtProperties;
 
 	@Override
 	@Transactional(rollbackFor = RuntimeException.class)
@@ -82,10 +77,7 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
 		if (!PwdEncoderUtil.match(req.getPassword(), user.getUserPwd())) {
 			throw new BusinessException(BusinessEnum.USER_PWD_ERROR);
 		}
-		// 登录成功
-		String jwtToken = JwtHelper.createJWT(req.getUserName(), user.getId() + "", "role", jwtProperties.getClientId(),
-				jwtProperties.getName(), jwtProperties.getExpiresSecond() * 1000, jwtProperties.getBase64Secret());
-		return new DataResponse(BusinessEnum.SUCCESS, "bearer;" + jwtToken);
+		return new DataResponse(BusinessEnum.SUCCESS);
 	}
 
 	@Override
@@ -147,5 +139,5 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
 		// 导出
 		ExcelExportUtil.exportToFile(filePath, resultList);
 	}
-
+	
 }
