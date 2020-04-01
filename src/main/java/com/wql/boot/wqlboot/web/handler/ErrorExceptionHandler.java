@@ -15,8 +15,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.alibaba.fastjson.support.spring.FastJsonJsonView;
 import com.wql.boot.wqlboot.common.constant.BaseConstant;
-import com.wql.boot.wqlboot.common.constant.BusinessEnum;
-import com.wql.boot.wqlboot.common.constant.BusinessException;
+import com.wql.boot.wqlboot.common.constant.ApiEnum;
+import com.wql.boot.wqlboot.common.constant.ApiException;
 
 /**
  * 异常处理机制
@@ -32,9 +32,9 @@ public class ErrorExceptionHandler {
 	/**
 	 * 自定义业务异常处理
 	 */
-	@ExceptionHandler({ BusinessException.class })
+	@ExceptionHandler({ ApiException.class })
 	@ResponseStatus(HttpStatus.OK)
-	public ModelAndView processException(BusinessException busExp) {
+	public ModelAndView processException(ApiException busExp) {
 		 ModelAndView mv = new ModelAndView();
          //使用FastJson提供的FastJsonJsonView视图返回，不需要捕获异常	
          FastJsonJsonView view = new FastJsonJsonView();
@@ -55,8 +55,8 @@ public class ErrorExceptionHandler {
 		 ModelAndView mv = new ModelAndView();
          FastJsonJsonView view = new FastJsonJsonView();
          Map<String, Object> attributes = new HashMap<String, Object>();
-         attributes.put(BaseConstant.CODE, BusinessEnum.PARAM_FAIL.getCode());
-         attributes.put(BaseConstant.MSG, BusinessEnum.PARAM_FAIL.getMsg());
+         attributes.put(BaseConstant.CODE, ApiEnum.PARAM_FAIL.getCode());
+         attributes.put(BaseConstant.MSG, ApiEnum.PARAM_FAIL.getMsg());
          view.setAttributesMap(attributes);
          mv.setView(view); 
          return mv;
@@ -72,8 +72,8 @@ public class ErrorExceptionHandler {
 		ModelAndView mv = new ModelAndView();
         FastJsonJsonView view = new FastJsonJsonView();
         Map<String, Object> attributes = new HashMap<String, Object>();
-        attributes.put(BaseConstant.CODE, BusinessEnum.FAIL.getCode());
-        attributes.put(BaseConstant.MSG, BusinessEnum.FAIL.getMsg());
+        attributes.put(BaseConstant.CODE, ApiEnum.FAIL.getCode());
+        attributes.put(BaseConstant.MSG, ApiEnum.FAIL.getMsg());
         view.setAttributesMap(attributes);
         mv.setView(view); 
         return mv;

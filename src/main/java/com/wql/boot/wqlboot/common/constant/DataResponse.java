@@ -25,12 +25,12 @@ public class DataResponse {
 	public DataResponse() {
 	}
 
-	public DataResponse(BusinessEnum busEnum) {
+	public DataResponse(ApiEnum busEnum) {
 		this.code = busEnum.getCode();
 		this.msg = busEnum.getMsg();
 	}
 	
-	public DataResponse(BusinessEnum busEnum, Object data) {
+	public DataResponse(ApiEnum busEnum, Object data) {
 		this.code = busEnum.getCode();
 		this.msg = busEnum.getMsg();
 		this.data = data;

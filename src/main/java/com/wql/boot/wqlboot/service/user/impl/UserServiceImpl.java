@@ -12,8 +12,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import com.wql.boot.wqlboot.common.base.BaseService;
-import com.wql.boot.wqlboot.common.constant.BusinessEnum;
-import com.wql.boot.wqlboot.common.constant.BusinessException;
+import com.wql.boot.wqlboot.common.constant.ApiEnum;
+import com.wql.boot.wqlboot.common.constant.ApiException;
 import com.wql.boot.wqlboot.common.constant.DataResponse;
 import com.wql.boot.wqlboot.common.util.bean.BeanUtils;
 import com.wql.boot.wqlboot.common.util.pwd.PwdEncoderUtil;
@@ -48,7 +48,7 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
 		// 查询是否存在
 		User user = userMapper.selectOne(record);
 		if (user != null) {
-			throw new BusinessException(BusinessEnum.USER_EXIST);
+			throw new ApiException(ApiEnum.USER_EXIST);
 		}
 		// 保存
 		record.setId(null);
@@ -57,9 +57,9 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
 		record.setUpdateDate(record.getCreateDate());
 		int flag = userMapper.insertSelective(record);
 		if (flag != 1) {
-			throw new BusinessException(BusinessEnum.USER_REGISTER_FAIL);
+			throw new ApiException(ApiEnum.USER_REGISTER_FAIL);
 		}
-		return new DataResponse(BusinessEnum.SUCCESS);
+		return new DataResponse(ApiEnum.SUCCESS);
 	}
 
 	@Override
@@ -71,13 +71,13 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
 		record.setUserName(req.getUserName());
 		User user = userMapper.selectOne(record);
 		if (user == null) {
-			throw new BusinessException(BusinessEnum.USER_NOT_EXIST);
+			throw new ApiException(ApiEnum.USER_NOT_EXIST);
 		}
 		// 判断密码是否正确
 		if (!PwdEncoderUtil.match(req.getPassword(), user.getUserPwd())) {
-			throw new BusinessException(BusinessEnum.USER_PWD_ERROR);
+			throw new ApiException(ApiEnum.USER_PWD_ERROR);
 		}
-		return new DataResponse(BusinessEnum.SUCCESS);
+		return new DataResponse(ApiEnum.SUCCESS);
 	}
 
 	@Override
@@ -88,16 +88,16 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
 		record.setUserName(userName);
 		User user = userMapper.selectOne(record);
 		if (user == null) {
-			throw new BusinessException(BusinessEnum.USER_NOT_EXIST);
+			throw new ApiException(ApiEnum.USER_NOT_EXIST);
 		}
-		return new DataResponse(BusinessEnum.SUCCESS, user);
+		return new DataResponse(ApiEnum.SUCCESS, user);
 	}
 
 	@Override
 	//@Cacheable(cacheNames="CacheData:user")
 	public DataResponse queryAll() {
 		List<User> list = userMapper.selectAll();
-		return new DataResponse(BusinessEnum.SUCCESS, list);
+		return new DataResponse(ApiEnum.SUCCESS, list);
 	}
 
 	@Override
@@ -112,7 +112,7 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
 			record.setUserPwd(PwdEncoderUtil.encrypt(req.getUserPwd()));
 		}
 		int flag = userMapper.updateByPrimaryKeySelective(record);
-		return flag == 1 ? new DataResponse(BusinessEnum.SUCCESS) : new DataResponse(BusinessEnum.FAIL);
+		return flag == 1 ? new DataResponse(ApiEnum.SUCCESS) : new DataResponse(ApiEnum.FAIL);
 	}
 
 	@Override
@@ -120,7 +120,7 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
 	public DataResponse deleteUser(Integer dataId) {
 		Assert.isTrue(dataId != null, "dataId不能为空");
 		int flag = userMapper.deleteByPrimaryKey(dataId);
-		return flag == 1 ? new DataResponse(BusinessEnum.SUCCESS) : new DataResponse(BusinessEnum.FAIL);
+		return flag == 1 ? new DataResponse(ApiEnum.SUCCESS) : new DataResponse(ApiEnum.FAIL);
 	}
 
 	@Override

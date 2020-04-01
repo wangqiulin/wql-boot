@@ -6,7 +6,7 @@ package com.wql.boot.wqlboot.common.constant;
  * @author wangqiulin
  *
  */
-public enum BusinessEnum {
+public enum ApiEnum {
 
 	/**
 	 * 系统级别
@@ -30,7 +30,7 @@ public enum BusinessEnum {
 	
 	private String msg;
 
-	private BusinessEnum(String code, String msg) {
+	private ApiEnum(String code, String msg) {
 		this.code = code;
 		this.msg = msg;
 	}

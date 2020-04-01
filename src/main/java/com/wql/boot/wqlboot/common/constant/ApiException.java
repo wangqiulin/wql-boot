@@ -5,7 +5,7 @@ package com.wql.boot.wqlboot.common.constant;
  * @author wangqiulin
  *
  */
-public class BusinessException extends RuntimeException {
+public class ApiException extends RuntimeException {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -19,12 +19,12 @@ public class BusinessException extends RuntimeException {
 	 */
 	private String msg;
 
-	public BusinessException(BusinessEnum busEnum) {
+	public ApiException(ApiEnum busEnum) {
 		this.code = busEnum.getCode();
 		this.msg = busEnum.getMsg();
 	}
 	
-	public BusinessException(String code, String msg) {
+	public ApiException(String code, String msg) {
 		this.code = code;
 		this.msg = msg;
 	}
